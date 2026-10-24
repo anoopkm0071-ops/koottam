@@ -244,6 +244,37 @@ footer small{display:block;color:var(--mute);font-weight:400;margin-top:6px}
   .widget #result{padding:0 16px 24px}
   body.wopen{overflow:hidden}
 }
+/* vazha challenge */
+.vazha{background:var(--card)}
+.vgrid{display:grid;grid-template-columns:1fr 1fr;gap:44px;align-items:center}
+.vgrid>*{min-width:0}
+@media(max-width:900px){.vgrid{grid-template-columns:1fr}}
+.vcount{font-weight:800;font-size:1.05rem}
+.vstage{position:relative;display:block;width:100%;max-width:440px;aspect-ratio:400/480;margin:0 auto;padding:0;background:var(--yel);border:3px solid var(--line);box-shadow:12px 12px 0 var(--line);cursor:pointer;overflow:hidden;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+.vstage svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.vstage .ol{stroke:#0d0d0d;stroke-width:3;stroke-linejoin:round}
+.vstage .leaf{fill:#3c9a3c}.vstage .leaf2{fill:#2a7a2e}.vstage .stem{fill:#b5c254}.vstage .soil{fill:#6b3f1d}.vstage .nana{fill:#ffe45c}.vstage .heart{fill:#8a1c3a}
+.vstage .rib{stroke:#0d0d0d;stroke-width:2;fill:none;opacity:.55}
+.vstage .sheath{stroke:#0d0d0d;stroke-width:2;opacity:.35}
+#vtop{transform-origin:234px 316px}
+#vtop.hit{animation:vshake .3s}
+@keyframes vshake{30%{transform:rotate(-2.5deg)}65%{transform:rotate(2deg)}}
+#vtop.fallen{animation:vfall 1.15s cubic-bezier(.55,0,.9,.4) forwards}
+@keyframes vfall{0%{transform:rotate(0)}70%{transform:translate(0,0) rotate(78deg)}86%{transform:translate(10px,98px) rotate(92deg)}100%{transform:translate(10px,96px) rotate(88deg)}}
+@media(prefers-reduced-motion:reduce){#vtop.fallen{animation:none;transform:translate(10px,96px) rotate(88deg)}}
+.vaxe{transform-origin:58px 398px;transform:rotate(-28deg);transition:opacity .3s}
+.vaxe.swing{animation:swing .3s}
+.vaxe.gone{opacity:0}
+@keyframes swing{0%{transform:rotate(-58deg)}55%{transform:rotate(2deg)}100%{transform:rotate(-28deg)}}
+.vstamp{position:absolute;left:50%;top:40%;transform:translate(-50%,-50%) rotate(-12deg);border:5px solid var(--red);color:var(--red);background:#ffd60ae6;font:400 clamp(28px,8vw,44px)/.95 var(--head);text-transform:uppercase;padding:10px 18px;text-align:center;white-space:nowrap;animation:stamp .4s cubic-bezier(.2,1.6,.4,1) backwards;pointer-events:none}
+@keyframes stamp{from{transform:translate(-50%,-50%) rotate(-12deg) scale(2.4);opacity:0}}
+.chipw{position:absolute;width:10px;height:6px;background:#efe0b0;border:1.5px solid #0d0d0d;pointer-events:none}
+#vdots{display:flex;gap:8px;justify-content:center;margin-top:26px}
+#vdots i{width:30px;height:12px;border:2.5px solid var(--line);background:var(--paper)}
+#vdots i.on{background:var(--red)}
+#vstatus{text-align:center;font-weight:800;margin-top:10px;text-transform:uppercase;letter-spacing:.1em;font-size:.82rem}
+.again{display:block;margin-top:22px;background:none;border:0;padding:0;color:var(--mute);font:800 .9rem var(--body);text-decoration:underline;cursor:pointer}
+.mcard .exv{display:inline-block;margin:14px 0 0 12px;border:3px solid #fff;padding:4px 10px;font:400 1.05rem/1.1 var(--head);text-transform:uppercase;letter-spacing:.04em;transform:rotate(-4deg);vertical-align:top}
 /* consent + invite box */
 .consent{padding:0 18px 16px;font-size:.82rem;color:var(--mute);font-weight:600}
 .refbox{margin-top:22px;padding:22px}
@@ -604,6 +635,68 @@ Certificate (Issuer, YYYY) · English, Malayalam, Hindi</pre>
   </div>
 </div></section>
 
+<section class="vazha" id="vazha"><div class="wrap rv">
+  <div class="vgrid">
+    <div>
+      <span class="kicker">The vazha challenge</span>
+      <h2>They called us<br><mark>vazha.</mark></h2>
+      <div id="vbefore">
+        <p class="sub" style="margin-bottom:22px">Back home, if you don't have a job, you're a vazha: a banana tree that just stands there. We're done standing. Tap the tree and cut it down.</p>
+        <p class="vcount">🪓 <b data-c="members">0</b> vazhas cut so far. Every Mallu who joins cuts one.</p>
+      </div>
+      <div id="vafter" hidden>
+        <p class="sub" style="margin-bottom:22px"><b style="color:var(--ink)">Not a vazha anymore.</b> Now prove it: join your group, get the openings, crack the interview.</p>
+        <div class="cta"><button class="btn" type="button" data-start="">Prove it. Join →</button><a class="btn alt" id="vshare" href="#" target="_blank" rel="noopener">Share on WhatsApp</a></div>
+        <button class="again" type="button" id="vagain">Grow it back and cut again ↺</button>
+      </div>
+    </div>
+    <div>
+      <button class="vstage" id="vstage" type="button" aria-label="Cut the vazha" aria-describedby="vstatus">
+        <svg viewBox="0 0 400 480" aria-hidden="true">
+          <path class="soil ol" d="M96 444c24-30 188-30 212 0z"/>
+          <line x1="16" y1="444" x2="384" y2="444" class="ol"/>
+          <rect class="stem ol" x="170" y="316" width="64" height="128"/>
+          <path class="sheath" d="M186 318v124M202 318v124M218 318v124"/>
+          <g id="vtop">
+            <path class="leaf2 ol" d="M196 196C150 172 88 200 54 256c52-36 96-42 142-40z"/>
+            <path class="rib" d="M196 204C150 196 100 214 62 248"/>
+            <path class="leaf ol" d="M202 162C150 92 72 80 18 128c62-6 124 16 184 48z"/>
+            <path class="rib" d="M200 168C150 116 90 104 30 124"/>
+            <path class="leaf ol" d="M202 162c48-80 136-92 184-42-66-4-128 20-184 56z"/>
+            <path class="rib" d="M204 168c50-58 112-66 172-48"/>
+            <path class="leaf2 ol" d="M198 154C180 82 150 32 106 10c40 52 64 102 84 152z"/>
+            <path class="rib" d="M196 152C182 96 156 54 114 18"/>
+            <path class="leaf ol" d="M206 154c20-80 58-126 102-140-36 54-60 104-90 150z"/>
+            <path class="rib" d="M208 152c20-62 52-106 92-132"/>
+            <rect class="stem ol" x="170" y="150" width="64" height="168"/>
+            <path class="sheath" d="M186 152v164M202 152v164M218 152v164"/>
+            <path class="ol" fill="none" stroke-width="5" d="M232 206c30 4 40 26 38 50v56"/>
+            <g class="ol">
+              <path class="nana" d="M258 232c-14 8-18 30-6 42 2-16 6-28 14-38z"/>
+              <path class="nana" d="M282 232c14 8 18 30 6 42-2-16-6-28-14-38z"/>
+              <path class="nana" d="M256 258c-14 8-18 30-6 42 2-16 6-28 14-38z"/>
+              <path class="nana" d="M284 258c14 8 18 30 6 42-2-16-6-28-14-38z"/>
+              <path class="nana" d="M262 284c-12 6-14 24-4 34 2-12 6-22 12-30z"/>
+              <path class="nana" d="M278 284c12 6 14 24 4 34-2-12-6-22-12-30z"/>
+            </g>
+            <path class="heart ol" d="M270 312c14 4 18 26 0 44-18-18-14-40 0-44z"/>
+          </g>
+          <polygon id="notch" points="170,316 170,316 170,316" fill="#0d0d0d"/>
+          <g id="vaxe" class="vaxe">
+            <path d="M58 398L150 318" stroke="#0d0d0d" stroke-width="17" stroke-linecap="round"/>
+            <path d="M58 398L150 318" stroke="#a8642c" stroke-width="10" stroke-linecap="round"/>
+            <path class="ol" fill="#d7dbe2" d="M132 312l12-14 24-8v54l-24-6-12-12z"/>
+            <path d="M166 292v50" stroke="#0d0d0d" stroke-width="3"/>
+          </g>
+        </svg>
+        <span class="vstamp" id="vstamp" hidden>Not a vazha<br>anymore</span>
+      </button>
+      <div id="vdots" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+      <p id="vstatus" aria-live="polite">Tap the tree. 5 cuts.</p>
+    </div>
+  </div>
+</div></section>
+
 <section class="final"><div class="wrap">
   <h2>No Mallu<br>left jobless.</h2>
   <p style="font-size:1.25rem;font-weight:600;margin:-6px auto 34px;max-width:560px">That's the mission. It only works if you're in it. Join, then bring one friend who needs this.</p>
@@ -664,7 +757,7 @@ const DOMAINS=[
  {id:'govt',n:'PSC & Government',e:'🏛️',roles:[['LDC notification alert','Statewide'],['Police Constable alert','Statewide'],['University Assistant alert','Statewide']]},
  {id:'creative',n:'Design & Creative',e:'🎨',roles:[['UI Designer','Kochi'],['Video Editor','Remote'],['Content Writer','Kozhikode']]}
 ];
-const SLOGANS=['A job for every Mallu','Never pay for a job','Join free. Stay free.','No Mallu left jobless','Openings · Referrals · Prep','Freshers to Gulf returnees'];
+const SLOGANS=['A job for every Mallu','Never pay for a job','Join free. Stay free.','No Mallu left jobless','Openings · Referrals · Prep','Freshers to Gulf returnees','Not a vazha anymore'];
 const KW={mkt:/market|seo|brand|social|advert|growth/i,sales:/sales|business dev/i,it:/software|developer|programm|tech|data|\bai\b|code|\bqa\b|devops/i,founder:/founder|startup|strategy|chief|operations/i,bank:/bank|financ|account|tax|invest/i,health:/nurs|health|doctor|pharm|\blab\b/i,gulf:/gulf|abroad|dubai|saudi|qatar/i,edu:/teach|tutor|educat|school/i,hosp:/hotel|hospitality|tour|chef|travel/i,eng:/civil|construct|mechanic|electric/i,govt:/psc|govern|upsc|ssc|railway/i,creative:/design|video|writer|creative/i};
 const EDU=[{v:'10',l:'SSLC / 10th'},{v:'12',l:'Plus Two'},{v:'diploma',l:'Diploma / ITI'},{v:'degree',l:'Degree'},{v:'pg',l:'Post-graduate'},{v:'prof',l:'Professional (B.Tech, CA, MBBS…)'}];
 const STATUS=[{v:'unemployed',l:'🔎 Unemployed, looking for a job',g:'Job seekers'},{v:'employed',l:'💼 Employed, looking for a change',g:'Working professionals'}];
@@ -807,6 +900,43 @@ $$('form.form').forEach(f=>f.addEventListener('submit',async e=>{
   $('#abLinks').innerHTML=L.map(([t,u],i)=>`<a class="btn${i?' ghost':''}" href="${esc(u)}" target="_blank" rel="noopener">${t} →</a>`).join('');
 })();
 
+/* ---------- vazha challenge: tap the banana tree five times ---------- */
+const vst=$('#vstage'),vtop=$('#vtop'),notch=$('#notch'),vaxe=$('#vaxe'),VCUTS=5;let cuts=0;
+function vchips(depth){
+  if(reduce)return;
+  const r=vst.getBoundingClientRect(),x=(170+depth)/400*r.width,y=316/480*r.height;
+  for(let i=0;i<10;i++){
+    const c=document.createElement('i');c.className='chipw';c.style.left=x+'px';c.style.top=y+'px';vst.appendChild(c);
+    const dx=-(25+Math.random()*90),dy=-(10+Math.random()*80),rot=(Math.random()-.5)*540;
+    c.animate([{transform:'translate(0,0) rotate(0)',opacity:1},{transform:`translate(${dx}px,${dy+60}px) rotate(${rot}deg)`,opacity:0}],{duration:650+Math.random()*250,easing:'cubic-bezier(.2,.7,.4,1)'}).onfinish=()=>c.remove();
+  }
+}
+function vcut(){
+  if(cuts>=VCUTS)return;
+  cuts++;const d=cuts/VCUTS*58;
+  notch.setAttribute('points',`170,${316-cuts*3} ${170+d},316 170,${316+cuts*3}`);
+  vaxe.classList.remove('swing');void vaxe.getBoundingClientRect();vaxe.classList.add('swing');
+  vtop.classList.remove('hit');void vtop.getBoundingClientRect();vtop.classList.add('hit');
+  vchips(d);try{navigator.vibrate&&navigator.vibrate(cuts<VCUTS?25:[40,60,80])}catch{}
+  $$('#vdots i').forEach((x,i)=>x.classList.toggle('on',i<cuts));
+  $('#vstatus').textContent=cuts<VCUTS?`${VCUTS-cuts} more ${VCUTS-cuts>1?'cuts':'cut'}…`:'Timber!';
+  if(cuts===VCUTS)setTimeout(()=>{vtop.classList.remove('hit');vtop.classList.add('fallen');setTimeout(vdone,reduce?0:1150)},reduce?0:320);
+}
+function vdone(){
+  $('#vstamp').hidden=false;vaxe.classList.add('gone');$('#vbefore').hidden=true;$('#vafter').hidden=false;
+  $('#vstatus').textContent='Not a vazha anymore ✊';
+  const link=(CONFIG.SITE_URL||location.href.split(/[?#]/)[0])+(state.memberNo?`?ref=${state.memberNo}`:'');
+  $('#vshare').href='https://wa.me/?text='+encodeURIComponent(`I just cut my vazha 🪓 Not a vazha anymore. Join Koottam, the movement for Mallu jobs: ${link}`);
+  burst();
+}
+function vregrow(){
+  cuts=0;vtop.classList.remove('fallen','hit');notch.setAttribute('points','170,316 170,316 170,316');
+  $('#vstamp').hidden=true;vaxe.classList.remove('gone');$('#vbefore').hidden=false;$('#vafter').hidden=true;
+  $$('#vdots i').forEach(x=>x.classList.remove('on'));$('#vstatus').textContent='Tap the tree. 5 cuts.';
+}
+vst.addEventListener('click',vcut);
+$('#vagain').addEventListener('click',vregrow);
+
 /* ---------- mobile menu ---------- */
 const burger=$('#burger'),links=$('#links');
 burger.addEventListener('click',()=>burger.setAttribute('aria-expanded',links.classList.toggle('open')));
@@ -861,13 +991,13 @@ function buildGroup(p){
 function showResult(){
   const p=prof,g=state.group,u=linkFor(g);
   const reflink=`${CONFIG.SITE_URL||location.href.split(/[?#]/)[0]}?ref=${state.memberNo}`;
-  const share=`I just joined Koottam as member #${fmt(state.memberNo)} ✊ Mission: a job for every Mallu. Join free: ${reflink}`;
+  const share=`I just joined Koottam as member #${fmt(state.memberNo)} ✊ Not a vazha anymore. Mission: a job for every Mallu. Join free: ${reflink}`;
   $('#result').innerHTML=`
    <div class="mcard">
      <div class="top"><span>Koottam ✦ Member card</span><span>${new Date(state.joinedAt||Date.now()).toLocaleDateString('en-IN',{month:'short',year:'numeric'})}</span></div>
      <div class="no">#${fmt(state.memberNo)}</div>
      <div class="nm">${esc(p.name)}</div>
-     <div class="grp">${g.e} ${esc(g.n)}</div>
+     <div class="grp">${g.e} ${esc(g.n)}</div><span class="exv">✓ Not a vazha anymore</span>
      <p class="inv">${u?'Your group is ready. Tap Join group below.':`Your invite is on its way to WhatsApp ${esc(p.phone)}.`}</p>
    </div>
    <div class="mcard-act">
@@ -901,6 +1031,7 @@ async function downloadCard(){
   x.fillStyle='#ffd60a';x.fillRect(66,430,w+40,64);x.strokeStyle='#0d0d0d';x.lineWidth=5;x.strokeRect(66,430,w+40,64);
   x.fillStyle='#0d0d0d';x.fillText(t,86,474);
   x.fillStyle='#fff';x.font='48px Anton, Impact, sans-serif';x.fillText('A JOB FOR EVERY MALLU',66,590);
+  x.save();x.font='46px Anton, Impact, sans-serif';const sw=Math.max(x.measureText('✓ NOT A VAZHA').width,x.measureText('ANYMORE').width)+48;x.translate(1140-sw/2,170);x.rotate(-0.12);x.strokeStyle='#fff';x.lineWidth=6;x.strokeRect(-sw/2,-62,sw,124);x.textAlign='center';x.fillText('✓ NOT A VAZHA',0,-8);x.fillText('ANYMORE',0,44);x.restore();
   const filename=`koottam-member-${state.memberNo}.png`;
   const dl=window.claude?.use?await window.claude.use('downloads').catch(()=>null):null;
   if(dl){const blob=await new Promise(r=>c.toBlob(r,'image/png'));try{await dl.save({filename,data:blob})}catch(e){if(e&&e.code==='unavailable')$('#dlCard').hidden=true}return}
