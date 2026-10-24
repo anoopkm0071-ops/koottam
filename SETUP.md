@@ -18,7 +18,18 @@ The site is a single file, `index.html`, served by GitHub Pages. Sign-ups go to 
 5. Click **Deploy**, approve the Google permissions prompt, then copy the **Web app URL**. It ends in `/exec`.
 6. In `index.html`, find `CONFIG` and paste the URL into `API_URL: '...'`. Commit the change, and the live site picks it up.
 
-Each sign-up becomes a row in the **Members** tab: member number, time, name, phone, education, domain, status and group. The website can only read the totals, never anyone's name or number.
+The script creates four tabs on its own:
+
+| Tab | What lands there |
+|---|---|
+| **Members** | Every sign-up: member number, time, name, phone, education, domain, status, group, and who invited them |
+| **Jobs** | Posts from the "Hiring?" form, including people who want to be industry leads |
+| **Stories** | Success stories sent from the site |
+| **Scams** | Scam reports |
+
+The website can only read totals, approved jobs and approved stories. It never sees anyone's phone number.
+
+**Approving posts:** a job or story only appears on the site after you type `yes` in its **Show on site** column. Check the **Scams** tab regularly and warn the groups about repeat names.
 
 If you edit `Code.gs` later, use **Deploy → Manage deployments → Edit → Version: New version**, so the URL stays the same.
 
@@ -39,5 +50,31 @@ Group names follow the pattern `<domain>-job-seekers` and `<domain>-working-prof
 
 Until a link is set, members see "Invite on the way", and you can add them by hand from the sheet.
 
+## 4. "Who's behind this" section
+People trust a face. In `index.html`, fill in `CONFIG.FOUNDER`. The section stays hidden until `name` is set.
+
+```js
+FOUNDER:{
+  name:'Your Name',
+  role:'Founder, Koottam',
+  photo:'founder.jpg',            // upload a square photo to the repo, or use an https:// link
+  story:'Why you started Koottam, in 2–4 sentences.',
+  instagram:'https://instagram.com/yourhandle',
+  whatsapp:'98XXXXXXXX',
+  email:'you@example.com'
+},
+INSTAGRAM:'https://instagram.com/koottam',   // adds an Instagram link to the footer
+```
+
+## 5. Visitor stats (optional, free)
+1. Sign up at https://www.goatcounter.com and pick a code, for example `koottam`.
+2. Set `GOATCOUNTER:'koottam'` in `CONFIG`.
+3. See visits, top pages and where people came from (WhatsApp, Instagram and so on) at `https://koottam.goatcounter.com`.
+
+## 6. Invite links
+Every member gets a personal link like `…/koottam/?ref=42`. Anyone who joins through it is recorded in the **Referred by** column, and the member sees "🔗 N Mallus joined through your link". To find your top recruiters, sort the **Members** tab by **Referred by** and count.
+
+If you move to a custom domain, update `SITE_URL` in `CONFIG` so invite links use it.
+
 ## Custom domain (optional)
-To use your own domain, go to **Settings → Pages → Custom domain**, enter it, and add the DNS record GitHub shows you.
+To use your own domain, go to **Settings → Pages → Custom domain**, enter it, and add the DNS record GitHub shows you. Then update `SITE_URL` in `CONFIG`, plus the `og:url` and `og:image` tags at the top of `index.html`, so WhatsApp previews keep working.
