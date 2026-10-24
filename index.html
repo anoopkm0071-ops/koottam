@@ -566,7 +566,7 @@ async function downloadCard(){
   const a=document.createElement('a');a.download=filename;a.href=c.toDataURL('image/png');a.click(); // standalone site
 }
 async function register(){
-  const pl={name:prof.name,phone:prof.phone,education:prof.edu,domain:prof.dom==='other'?prof.domText:prof.dom,status:prof.status,group:state.group.slug,ref:store.get('koottam_ref','')};
+  const pl={name:prof.name,phone:prof.phone,education:prof.edu,domain:prof.dom==='other'?prof.domText:prof.dom,status:prof.status,group:state.group.slug,groupName:state.group.n,ref:store.get('koottam_ref','')};
   if(!CONFIG.API_URL)return null;
   try{const j=await (await fetch(CONFIG.API_URL,{method:'POST',body:JSON.stringify(pl)})).json();return j&&j.ok?j:null}catch{return null}
 }

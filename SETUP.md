@@ -35,6 +35,27 @@ The website can only read totals, approved jobs and approved stories. It never s
 
 If you edit `Code.gs` later, use **Deploy → Manage deployments → Edit → Version: New version**, so the URL stays the same.
 
+## 2b. Send every new member a WhatsApp thank-you (optional)
+
+WhatsApp only lets a business message someone first through the **WhatsApp Business Platform** (Meta Cloud API), using a message template Meta has approved. Meta charges a small fee per template message.
+
+1. Go to https://business.facebook.com and create a Meta Business account (free).
+2. Go to https://developers.facebook.com → **My Apps → Create app** → type **Business** → add the **WhatsApp** product.
+3. Under **WhatsApp → API Setup**, add your business phone number. It must be a number that is **not** already on the normal WhatsApp or WhatsApp Business app. Verify it by SMS, and add a payment method when asked.
+4. Copy the **Phone number ID** from that page.
+5. Create a permanent token: **Business settings → Users → System users → Add** (Admin) → **Add assets** (your app, full control) → **Generate token** with `whatsapp_business_messaging` and `whatsapp_business_management`. Copy it.
+6. Create the template: **WhatsApp Manager → Message templates → Create** → category **Utility**, name `koottam_welcome`, language **English**, body:
+
+   > Hi {{1}}, thanks for joining Koottam! ✊ You're member #{{2}} in {{3}}. We'll share job openings, referrals and interview prep with you here. Never pay anyone for a job. Not a vazha anymore 🪓
+
+   Add sample values (Anoop, 1, Marketing · Job seekers) and submit. Approval usually takes minutes to a few hours.
+7. In your sheet, open **Extensions → Apps Script → Project Settings (⚙️) → Script properties** and add:
+   - `WA_TOKEN` = the token from step 5
+   - `WA_PHONE_ID` = the Phone number ID from step 4
+8. Paste the latest `apps-script/Code.gs` into the editor, **Save**, then **Deploy → Manage deployments → ✏️ Edit → Version: New version → Deploy**, and allow the new permission (it now sends web requests to WhatsApp).
+
+The **Members** tab's last column shows `sent`, `failed (code)` or `off` for every new member.
+
 ## 3. Add WhatsApp group invite links
 Create the groups in WhatsApp (**Group → Invite via link → Copy link**), then fill in `GROUP_LINKS` in `config.js`:
 

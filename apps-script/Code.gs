@@ -9,11 +9,18 @@
  * POST type=scam    -> scam report
  *
  * Jobs and stories only appear on the site after you type "yes" in their "Show on site" column.
+ *
+ * WhatsApp thank-you message (optional): set these in Project Settings → Script properties
+ *   WA_TOKEN     permanent access token from Meta (WhatsApp Business Platform)
+ *   WA_PHONE_ID  the "Phone number ID" of your WhatsApp Business number
+ *   WA_TEMPLATE  approved template name (default koottam_welcome), body variables {{1}} first name, {{2}} member number, {{3}} group
+ *   WA_LANG      template language code (default en)
+ * Without WA_TOKEN and WA_PHONE_ID nothing is sent; the Members tab notes "off".
  * Setup steps: see SETUP.md.
  */
 const TZ = 'Asia/Kolkata';
 const SHEETS = {
-  Members: ['Member #', 'Joined at', 'Name', 'Phone', 'Education', 'Domain', 'Status', 'Group', 'Referred by'],
+  Members: ['Member #', 'Joined at', 'Name', 'Phone', 'Education', 'Domain', 'Status', 'Group', 'Referred by', 'WhatsApp welcome'],
   Jobs:    ['Posted at', 'Name', 'Contact', 'Company', 'Role', 'Domain', 'Location', 'Type', 'Link', 'Details', 'Wants to be lead', 'Show on site'],
   Stories: ['Sent at', 'Name', 'Contact', 'Domain', 'Role', 'Company', 'Story', 'Consent', 'Show on site'],
   Scams:   ['Reported at', 'Agent / company', 'Their phone or website', 'What happened', 'Amount asked', 'Reporter contact']
@@ -23,6 +30,7 @@ function sheet_(name) {
   const ss = SpreadsheetApp.getActiveSpreadsheet();
   let sh = ss.getSheetByName(name);
   if (!sh) { sh = ss.insertSheet(name); sh.appendRow(SHEETS[name]); sh.setFrozenRows(1); }
+  else if (sh.getLastColumn() < SHEETS[name].length) sh.getRange(1, 1, 1, SHEETS[name].length).setValues([SHEETS[name]]); // add new header columns
   return sh;
 }
 
@@ -64,6 +72,34 @@ function publicJobs_() {
 function publicStories_() {
   return rows_(sheet_('Stories')).filter(r => yes_(r[8]) && yes_(r[7])).slice(-6).reverse()
     .map(r => ({ name: String(r[1]).split(' ')[0], domain: r[3], role: r[4], company: r[5], story: r[6] }));
+}
+
+// Sends the approved WhatsApp template to a new member. Returns what to note in the sheet.
+function sendWelcome_(phone, name, memberNo, group) {
+  const p = PropertiesService.getScriptProperties();
+  const token = p.getProperty('WA_TOKEN'), id = p.getProperty('WA_PHONE_ID');
+  if (!token || !id) return 'off';
+  const body = {
+    messaging_product: 'whatsapp', to: '91' + phone, type: 'template',
+    template: {
+      name: p.getProperty('WA_TEMPLATE') || 'koottam_welcome',
+      language: { code: p.getProperty('WA_LANG') || 'en' },
+      components: [{ type: 'body', parameters: [
+        { type: 'text', text: String(name).split(' ')[0] },
+        { type: 'text', text: String(memberNo) },
+        { type: 'text', text: group || 'your Koottam group' }
+      ] }]
+    }
+  };
+  try {
+    const r = UrlFetchApp.fetch('https://graph.facebook.com/' + (p.getProperty('WA_API_VERSION') || 'v23.0') + '/' + id + '/messages', {
+      method: 'post', contentType: 'application/json', headers: { Authorization: 'Bearer ' + token },
+      payload: JSON.stringify(body), muteHttpExceptions: true
+    });
+    return r.getResponseCode() < 300 ? 'sent' : 'failed (' + r.getResponseCode() + ')';
+  } catch (err) {
+    return 'failed';
+  }
 }
 
 function doGet(e) {
@@ -119,8 +155,10 @@ function doPost(e) {
       memberNo, now, name, "'" + phone,
       clean_(d.education, 40), clean_(d.domain, 60),
       d.status === 'employed' ? 'employed' : 'unemployed',
-      clean_(d.group, 100), ref
+      clean_(d.group, 100), ref, ''
     ]);
+    const row = sh.getLastRow();
+    sh.getRange(row, 10).setValue(sendWelcome_(phone, name, memberNo, String(d.groupName || '').slice(0, 80)));
     return json_(Object.assign({ ok: true, memberNo: memberNo }, stats_()));
   } catch (err) {
     return json_({ ok: false, error: 'server' });
