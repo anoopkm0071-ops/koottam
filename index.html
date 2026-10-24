@@ -19,361 +19,13 @@
 <link rel="apple-touch-icon" href="icon-180.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
-<style>
-:root{
-  --paper:#f5f0e6; --ink:#0d0d0d; --card:#fffdf8; --mute:#5b5750; --line:#0d0d0d;
-  --red:#e8202a; --yel:#ffd60a; --black:#0d0d0d; --white:#f5f0e6;
-  --head:'Anton','Impact','Arial Narrow Bold',sans-serif; --body:'Inter',system-ui,sans-serif;
-}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--paper:#121110;--ink:#f5f0e6;--card:#1c1a18;--mute:#aaa397;--line:#f5f0e6}}
-:root[data-theme="dark"]{--paper:#121110;--ink:#f5f0e6;--card:#1c1a18;--mute:#aaa397;--line:#f5f0e6}
-*{box-sizing:border-box;margin:0}
-html{scroll-behavior:smooth}
-body{background:var(--paper);color:var(--ink);font:400 17px/1.55 var(--body);overflow-x:hidden}
-a{color:inherit}
-h1,h2,h3,.big{font-family:var(--head);font-weight:400;text-transform:uppercase;line-height:.92;letter-spacing:.005em}
-h2{font-size:clamp(2.6rem,8vw,5.6rem);margin-bottom:18px}
-.wrap{max-width:1180px;margin:0 auto;padding:0 24px}
-@media(max-width:600px){.wrap{padding:0 16px}}
-section{padding:96px 0;border-bottom:3px solid var(--line)}
-.kicker{display:inline-block;font:800 .8rem/1 var(--body);letter-spacing:.16em;text-transform:uppercase;background:var(--ink);color:var(--paper);padding:8px 12px;margin-bottom:22px}
-.sub{font-size:1.15rem;color:var(--mute);max-width:640px;margin-bottom:40px}
-mark{background:var(--yel);color:var(--black);padding:0 .12em;display:inline-block;transform:rotate(-1.5deg)}
-.red{color:var(--red)}
-.btn{display:inline-flex;align-items:center;gap:10px;cursor:pointer;font:400 1.25rem/1 var(--head);text-transform:uppercase;letter-spacing:.03em;
-  padding:16px 28px;background:var(--red);color:#fff;border:3px solid var(--line);box-shadow:6px 6px 0 var(--line);text-decoration:none;transition:transform .12s,box-shadow .12s}
-.btn:hover{transform:translate(-2px,-2px);box-shadow:8px 8px 0 var(--line)}
-.btn:active{transform:translate(4px,4px);box-shadow:2px 2px 0 var(--line)}
-.btn.alt{background:var(--yel);color:var(--black)}
-.btn.ghost{background:var(--card);color:var(--ink)}
-.box{background:var(--card);border:3px solid var(--line);box-shadow:8px 8px 0 var(--line)}
-:focus-visible{outline:4px solid var(--yel);outline-offset:3px}
-
-/* nav */
-nav{position:sticky;top:0;z-index:50;background:var(--paper);border-bottom:3px solid var(--line)}
-nav .wrap{display:flex;align-items:center;justify-content:space-between;height:70px;gap:14px}
-.logo{font:400 1.9rem var(--head);text-decoration:none;letter-spacing:.02em}
-.logo span{color:var(--red)}
-.links{display:flex;gap:24px;font-weight:800;font-size:.85rem;text-transform:uppercase;letter-spacing:.06em}
-.links a{text-decoration:none}.links a:hover{color:var(--red)}
-nav .btn{padding:10px 16px;font-size:1rem;box-shadow:4px 4px 0 var(--line)}
-nav .btn b{background:var(--yel);color:var(--black);padding:2px 8px;font:800 .8rem var(--body)}
-.navr{display:flex;gap:10px;align-items:center}
-.burger{display:none;width:46px;height:46px;border:3px solid var(--line);background:var(--card);color:var(--ink);font-size:1.3rem;cursor:pointer;box-shadow:3px 3px 0 var(--line)}
-@media(max-width:900px){
-  .burger{display:inline-grid;place-items:center}
-  .links{position:absolute;top:100%;left:0;right:0;display:none;flex-direction:column;gap:0;background:var(--paper);border-bottom:3px solid var(--line);padding:4px 24px 12px}
-  .links.open{display:flex}
-  .links a{padding:14px 0;border-bottom:2px solid var(--line)}
-  .links a:last-child{border-bottom:0}
-}
-@media(max-width:420px){nav .btn b{display:none}}
-
-/* hero */
-.hero{padding:64px 0 80px}
-.hero .wrap{display:grid;grid-template-columns:1.25fr .75fr;gap:48px;align-items:center}
-@media(max-width:940px){.hero .wrap{grid-template-columns:1fr}}
-.stamp{display:inline-block;border:3px solid var(--red);color:var(--red);font:400 1.1rem var(--head);padding:6px 14px;transform:rotate(-3deg);margin-bottom:24px;letter-spacing:.08em}
-.hero h1{font-size:clamp(3.6rem,11.5vw,9.4rem);margin-bottom:26px}
-.hero p{font-size:1.25rem;max-width:560px;margin-bottom:34px;font-weight:600}
-.cta{display:flex;gap:18px;flex-wrap:wrap}
-.counter{background:var(--red);color:#fff;border:3px solid var(--line);box-shadow:12px 12px 0 var(--line);padding:30px 28px;transform:rotate(1.5deg)}
-.counter .live{display:flex;align-items:center;gap:10px;font:800 .8rem var(--body);letter-spacing:.16em;text-transform:uppercase}
-.dot{width:12px;height:12px;border-radius:50%;background:var(--yel);animation:blink 1.2s infinite}
-@keyframes blink{50%{opacity:.25}}
-.counter .num{font:400 clamp(3.4rem,9vw,5.8rem)/1 var(--head);margin:14px 0 4px;font-variant-numeric:tabular-nums}
-.counter .lbl{font:400 1.6rem/1 var(--head);text-transform:uppercase}
-.meter{height:18px;border:3px solid var(--black);background:#fff;margin:22px 0 8px}
-.meter i{display:block;height:100%;background:var(--yel);width:0;transition:width 1.2s}
-.counter small{font-weight:600;font-size:.88rem;opacity:.95}
-.counter .today{margin-top:16px;padding-top:14px;border-top:2px dashed #ffffff88;font-weight:800}
-
-/* marquee */
-.marq{background:var(--black);color:var(--yel);border-bottom:3px solid var(--line);overflow:hidden;white-space:nowrap;padding:16px 0}
-.marq div{display:inline-block;animation:slide 32s linear infinite;font:400 1.7rem var(--head);text-transform:uppercase;letter-spacing:.03em}
-.marq span{margin:0 26px}.marq span:nth-child(even){color:#fff}
-@keyframes slide{to{transform:translateX(-50%)}}
-
-/* stats strip */
-.strip{display:grid;grid-template-columns:repeat(4,1fr);border-bottom:3px solid var(--line)}
-.strip div{padding:28px 24px;border-right:3px solid var(--line)}
-.strip div:last-child{border-right:0}
-.strip b{display:block;font:400 clamp(2.2rem,5vw,3.4rem)/1 var(--head);font-variant-numeric:tabular-nums}
-.strip span{font-weight:800;text-transform:uppercase;font-size:.78rem;letter-spacing:.1em;color:var(--mute)}
-@media(max-width:760px){.strip{grid-template-columns:1fr 1fr}.strip div:nth-child(2){border-right:0}.strip div:nth-child(-n+2){border-bottom:3px solid var(--line)}}
-
-/* enemies */
-.enemies{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
-@media(max-width:900px){.enemies{grid-template-columns:1fr}}
-.enemy{padding:30px 26px;position:relative}
-.enemy .n{font:400 5rem/1 var(--head);color:var(--red)}
-.enemy h3{font-size:2.3rem;margin:8px 0 12px}
-.enemy p{color:var(--mute)}
-.enemy .fight{margin-top:18px;padding:14px 16px;background:var(--yel);color:var(--black);border:3px solid var(--line);font-weight:600}
-.enemy .fight b{display:block;font:400 1.1rem var(--head);letter-spacing:.04em;text-transform:uppercase;margin-bottom:4px}
-
-/* pledge */
-.pledge{background:var(--black);color:var(--white)}
-.pledge .kicker{background:var(--yel);color:var(--black)}
-.pledge .sub{color:#c9c3b6}
-.pl{display:grid;grid-template-columns:repeat(2,1fr);gap:0;border:3px solid var(--white)}
-@media(max-width:760px){.pl{grid-template-columns:1fr}}
-.pl>div{padding:28px 26px;border-bottom:3px solid var(--white);display:flex;gap:20px;align-items:flex-start}
-.pl>div:nth-child(odd){border-right:3px solid var(--white)}
-.pl>div:nth-last-child(-n+2){border-bottom:0}
-@media(max-width:760px){.pl>div:nth-child(odd){border-right:0}.pl>div:nth-last-child(2){border-bottom:3px solid var(--white)}}
-.pl i{font:400 2.6rem/1 var(--head);color:var(--yel);font-style:normal;min-width:52px}
-.pl h3{font-size:1.8rem;margin-bottom:6px}
-.pl p{color:#c9c3b6}
-
-/* join / guide */
-.joinwrap{display:grid;grid-template-columns:.9fr 1.1fr;gap:44px;align-items:start}
-@media(max-width:940px){.joinwrap{grid-template-columns:1fr}}
-.steps{list-style:none;padding:0;display:grid;gap:14px;margin-top:10px}
-.steps li{display:flex;gap:14px;align-items:center;font-weight:800;font-size:1.05rem}
-.steps li b{font:400 1.4rem/1 var(--head);background:var(--ink);color:var(--paper);width:42px;height:42px;display:grid;place-items:center;flex:none}
-.chat{overflow:hidden}
-.chat-head{display:flex;gap:12px;align-items:center;padding:14px 18px;border-bottom:3px solid var(--line);background:var(--yel);color:var(--black)}
-.chat-head b{font:400 1.4rem var(--head);text-transform:uppercase;letter-spacing:.03em}
-.chat-head small{display:block;font-weight:600}
-.av2{width:44px;height:44px;background:var(--red);color:#fff;border:3px solid var(--black);display:grid;place-items:center;font:400 1.4rem var(--head);flex:none}
-.reset{margin-left:auto;background:transparent;border:2px solid var(--black);color:var(--black);font:800 .75rem var(--body);text-transform:uppercase;letter-spacing:.08em;padding:7px 10px;cursor:pointer}
-.prog{height:8px;background:var(--paper);border-bottom:3px solid var(--line)}.prog i{display:block;height:100%;width:0;background:var(--red);transition:width .5s}
-.log{height:330px;overflow-y:auto;padding:20px;display:flex;flex-direction:column;gap:12px}
-.msg{max-width:86%;padding:12px 16px;border:2.5px solid var(--line);line-height:1.45;overflow-wrap:anywhere;animation:pop .3s;font-weight:600}
-@keyframes pop{from{opacity:0;transform:translateY(10px)}}
-.msg.bot{background:var(--paper);align-self:flex-start;box-shadow:4px 4px 0 var(--line)}
-.msg.me{background:var(--red);color:#fff;align-self:flex-end;box-shadow:-4px 4px 0 var(--line)}
-.dots span{display:inline-block;width:8px;height:8px;margin:0 2px;background:var(--ink);animation:bounce 1s infinite}
-.dots span:nth-child(2){animation-delay:.15s}.dots span:nth-child(3){animation-delay:.3s}
-@keyframes bounce{40%{transform:translateY(-6px)}}
-.opts{display:flex;flex-wrap:wrap;gap:10px;padding:16px 18px 18px;border-top:3px solid var(--line)}
-.opts:empty{display:none}
-.chip{border:2.5px solid var(--line);background:var(--card);color:var(--ink);padding:10px 14px;cursor:pointer;font:800 .9rem var(--body);box-shadow:3px 3px 0 var(--line);transition:transform .1s,box-shadow .1s,background .1s}
-.chip:hover{background:var(--yel);color:var(--black);transform:translate(-1px,-1px);box-shadow:4px 4px 0 var(--line)}
-#chatText{display:flex;gap:10px;padding:16px 18px 18px;border-top:3px solid var(--line)}
-#chatText[hidden]{display:none}
-#chatText input{flex:1;min-width:0;border:2.5px solid var(--line);background:var(--paper);color:var(--ink);font:600 1rem var(--body);padding:12px 14px}
-#chatText .btn{padding:10px 18px;font-size:1.1rem;box-shadow:4px 4px 0 var(--line)}
-
-/* member card */
-.mcard{margin-top:30px;background:var(--red);color:#fff;border:3px solid var(--line);box-shadow:10px 10px 0 var(--line);padding:26px;position:relative;overflow:hidden;animation:pop .5s}
-.mcard::after{content:"MEMBER";position:absolute;right:-12px;bottom:-24px;font:400 7rem/1 var(--head);color:#ffffff1f;pointer-events:none}
-.mcard .top{display:flex;justify-content:space-between;gap:10px;font:800 .78rem var(--body);letter-spacing:.16em;text-transform:uppercase}
-.mcard .no{font:400 clamp(3rem,9vw,4.6rem)/1 var(--head);margin:16px 0 6px}
-.mcard .nm{font:400 2rem/1 var(--head);text-transform:uppercase;overflow-wrap:anywhere}
-.mcard .grp{display:inline-block;margin-top:14px;background:var(--yel);color:var(--black);border:2.5px solid var(--black);padding:6px 12px;font-weight:800}
-.mcard .inv{margin-top:14px;font-weight:600;position:relative;z-index:1}
-.mcard-act{display:flex;gap:14px;flex-wrap:wrap;margin-top:22px}
-.mcard-act .btn{font-size:1.05rem;padding:12px 18px}
-
-/* domains */
-.doms{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:20px}
-.dom{text-align:left;cursor:pointer;padding:22px 20px;font:inherit;color:var(--ink);display:flex;flex-direction:column;gap:8px;transition:transform .12s,box-shadow .12s,background .12s;box-shadow:6px 6px 0 var(--line)}
-.dom:hover{background:var(--yel);color:var(--black);transform:translate(-2px,-2px);box-shadow:8px 8px 0 var(--line)}
-.dom .e{font-size:2rem}
-.dom h3{font-size:1.7rem}
-.dom small{font-weight:800;text-transform:uppercase;letter-spacing:.08em;font-size:.75rem}
-.dom .go{margin-top:auto;font:400 1rem var(--head);text-transform:uppercase;color:var(--red)}
-
-/* districts */
-.board{padding:10px 0}
-.drow{display:grid;grid-template-columns:44px 250px 1fr 84px;gap:14px;align-items:center;padding:12px 22px;border-bottom:2px solid var(--line);font-weight:800}
-.drow:last-child{border-bottom:0}
-.board .empty{padding:18px 22px;color:var(--mute);font-weight:600}
-.drow .rk{font:400 1.6rem var(--head)}
-.drow:nth-child(1) .rk{color:var(--red)}
-.bar{height:20px;border:2.5px solid var(--line);background:var(--paper)}
-.bar i{display:block;height:100%;background:var(--red);width:0;transition:width 1s}
-.drow:nth-child(-n+3) .bar i{background:var(--yel)}
-.drow b{text-align:right;font-variant-numeric:tabular-nums}
-@media(max-width:640px){.drow{grid-template-columns:34px 1fr 70px;padding:12px 14px}.drow .bar{grid-column:1/-1;grid-row:2}}
-
-/* jobs */
-#feed{display:grid;gap:14px}
-.job{display:grid;grid-template-columns:auto 1fr auto;gap:16px;align-items:center;padding:16px 20px;animation:pop .45s;box-shadow:5px 5px 0 var(--line)}
-.job .e{font-size:1.8rem}
-.job h4{font:400 1.45rem/1.05 var(--head);text-transform:uppercase}
-.job p{color:var(--mute);font-size:.88rem;font-weight:600}
-.tag{display:inline-block;font:800 .7rem var(--body);letter-spacing:.08em;text-transform:uppercase;padding:3px 8px;border:2px solid var(--line);margin-left:8px;vertical-align:middle;background:var(--yel);color:var(--black)}
-.tag.new{background:var(--red);color:#fff}
-@media(max-width:600px){.job{grid-template-columns:auto 1fr}.job .btn{grid-column:1/-1;justify-content:center}}
-
-/* final */
-.final{background:var(--red);color:#fff;text-align:center;padding:110px 0}
-.final h2{font-size:clamp(2.8rem,9vw,7rem);margin-bottom:26px}
-.final .btn{background:var(--yel);color:var(--black);font-size:1.6rem;padding:20px 34px}
-footer{padding:34px 0;font-weight:600;font-size:.9rem}
-footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
-footer small{display:block;color:var(--mute);font-weight:400;margin-top:6px}
-
-.joinwrap>*,.hiregrid>*,.scamgrid>*,.cvgrid>*,.roadgrid>*,.aboutgrid>*{min-width:0}
-/* chat widget */
-.wl{position:fixed;right:20px;bottom:20px;z-index:60;display:flex;flex-direction:column;align-items:flex-end;gap:12px;transition:opacity .2s,transform .2s}
-.wl.hide{opacity:0;transform:translateY(20px);pointer-events:none}
-.launcher{position:relative;display:flex;align-items:center;gap:10px;background:var(--red);color:#fff;border:3px solid var(--line);box-shadow:5px 5px 0 var(--line);padding:12px 18px 12px 14px;font:400 1.15rem/1 var(--head);text-transform:uppercase;letter-spacing:.03em;cursor:pointer;transition:transform .12s,box-shadow .12s}
-.launcher:hover{transform:translate(-2px,-2px);box-shadow:7px 7px 0 var(--line)}
-.launcher::before{content:"";position:absolute;top:-7px;right:-7px;width:14px;height:14px;border-radius:50%;background:var(--yel);border:2px solid var(--black);animation:blink 1.2s infinite}
-.launcher .li{font-size:1.35rem;line-height:1}
-.nudge{position:relative;max-width:250px;background:var(--card);color:var(--ink);border:3px solid var(--line);box-shadow:5px 5px 0 var(--line);padding:14px 30px 14px 16px;font-weight:700;font-size:.92rem;cursor:pointer;animation:pop .35s}
-.nx{position:absolute;top:4px;right:6px;border:0;background:none;color:var(--ink);font-size:1.3rem;line-height:1;cursor:pointer;padding:2px 4px}
-.widget{position:fixed;right:20px;bottom:20px;z-index:70;width:400px;max-width:calc(100vw - 40px);max-height:calc(100vh - 110px);display:flex;flex-direction:column;animation:pop .25s}
-.widget[hidden]{display:none}
-.wbody{overflow-y:auto;padding:0 12px 12px 0}
-.widget .log{height:min(46vh,380px)}
-.widget .mcard{margin-top:18px;box-shadow:6px 6px 0 var(--line)}
-.widget .refbox{box-shadow:6px 6px 0 var(--line)}
-.wclose{display:none;width:34px;height:34px;margin-left:8px;border:2px solid var(--black);background:transparent;color:var(--black);font:800 1rem var(--body);cursor:pointer;flex:none}
-.widget .wclose{display:grid;place-items:center}
-.reset{white-space:nowrap}
-.widget .chat-head{gap:10px;padding:12px 14px}
-.widget .chat-head b{font-size:1.2rem;white-space:nowrap}
-.widget .chat-head small{font-size:.75rem;white-space:nowrap}
-.widget .av2{width:38px;height:38px;font-size:1.2rem}
-.widget .reset{font-size:0;padding:5px 9px}
-.widget .reset::before{content:"↺";font-size:1.05rem}
-.widget .chat-head>div{min-width:0}
-.away{padding:26px;font-weight:700;display:flex;flex-direction:column;gap:16px;align-items:flex-start}
-.away[hidden]{display:none}
-@media(max-width:600px){
-  .wl{right:14px;bottom:14px}
-  .widget{inset:0;width:auto;max-width:none;max-height:none}
-  .wbody{padding:0;height:100%;background:var(--paper)}
-  .widget .chat{border:0;box-shadow:none;min-height:100%;display:flex;flex-direction:column}
-  .widget .log{flex:1;height:auto;min-height:40vh}
-  .widget #result{padding:0 16px 24px}
-  body.wopen{overflow:hidden}
-}
-/* vazha challenge */
-.vazha{background:var(--card)}
-.vgrid{display:grid;grid-template-columns:1fr 1fr;gap:44px;align-items:center}
-.vgrid>*{min-width:0}
-@media(max-width:900px){.vgrid{grid-template-columns:1fr}}
-.vcount{font-weight:800;font-size:1.05rem}
-.vstage{position:relative;display:block;width:100%;max-width:440px;aspect-ratio:400/480;margin:0 auto;padding:0;background:var(--yel);border:3px solid var(--line);box-shadow:12px 12px 0 var(--line);cursor:pointer;overflow:hidden;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
-.vstage svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
-.vstage .ol{stroke:#0d0d0d;stroke-width:3;stroke-linejoin:round}
-.vstage .leaf{fill:#3c9a3c}.vstage .leaf2{fill:#2a7a2e}.vstage .stem{fill:#b5c254}.vstage .soil{fill:#6b3f1d}.vstage .nana{fill:#ffe45c}.vstage .heart{fill:#8a1c3a}
-.vstage .rib{stroke:#0d0d0d;stroke-width:2;fill:none;opacity:.55}
-.vstage .sheath{stroke:#0d0d0d;stroke-width:2;opacity:.35}
-#vtop{transform-origin:234px 316px}
-#vtop.hit{animation:vshake .3s}
-@keyframes vshake{30%{transform:rotate(-2.5deg)}65%{transform:rotate(2deg)}}
-#vtop.fallen{animation:vfall 1.15s cubic-bezier(.55,0,.9,.4) forwards}
-@keyframes vfall{0%{transform:rotate(0)}70%{transform:translate(0,0) rotate(78deg)}86%{transform:translate(10px,98px) rotate(92deg)}100%{transform:translate(10px,96px) rotate(88deg)}}
-@media(prefers-reduced-motion:reduce){#vtop.fallen{animation:none;transform:translate(10px,96px) rotate(88deg)}}
-.vaxe{transform-origin:58px 398px;transform:rotate(-28deg);transition:opacity .3s}
-.vaxe.swing{animation:swing .3s}
-.vaxe.gone{opacity:0}
-@keyframes swing{0%{transform:rotate(-58deg)}55%{transform:rotate(2deg)}100%{transform:rotate(-28deg)}}
-.vstamp{position:absolute;left:50%;top:40%;transform:translate(-50%,-50%) rotate(-12deg);border:5px solid var(--red);color:var(--red);background:#ffd60ae6;font:400 clamp(28px,8vw,44px)/.95 var(--head);text-transform:uppercase;padding:10px 18px;text-align:center;white-space:nowrap;animation:stamp .4s cubic-bezier(.2,1.6,.4,1) backwards;pointer-events:none}
-@keyframes stamp{from{transform:translate(-50%,-50%) rotate(-12deg) scale(2.4);opacity:0}}
-.chipw{position:absolute;width:10px;height:6px;background:#efe0b0;border:1.5px solid #0d0d0d;pointer-events:none}
-#vdots{display:flex;gap:8px;justify-content:center;margin-top:26px}
-#vdots i{width:30px;height:12px;border:2.5px solid var(--line);background:var(--paper)}
-#vdots i.on{background:var(--red)}
-#vstatus{text-align:center;font-weight:800;margin-top:10px;text-transform:uppercase;letter-spacing:.1em;font-size:.82rem}
-.again{display:block;margin-top:22px;background:none;border:0;padding:0;color:var(--mute);font:800 .9rem var(--body);text-decoration:underline;cursor:pointer}
-.mcard .exv{display:inline-block;margin:14px 0 0 12px;border:3px solid #fff;padding:4px 10px;font:400 1.05rem/1.1 var(--head);text-transform:uppercase;letter-spacing:.04em;transform:rotate(-4deg);vertical-align:top}
-/* consent + invite box */
-.consent{padding:0 18px 16px;font-size:.82rem;color:var(--mute);font-weight:600}
-.refbox{margin-top:22px;padding:22px}
-.refbox code{display:block;word-break:break-all;background:var(--paper);padding:8px 10px;border:2px solid var(--line);font-weight:600}
-
-/* prep */
-.tabs{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:28px}
-.tabs button{border:3px solid var(--line);background:var(--card);color:var(--ink);padding:12px 18px;cursor:pointer;font:800 .95rem var(--body);box-shadow:4px 4px 0 var(--line)}
-.tabs button[aria-selected=true]{background:var(--ink);color:var(--paper)}
-.flash{min-height:280px;padding:34px 30px;cursor:pointer;display:flex;align-items:center;max-width:820px}
-.flash small{font-weight:800;text-transform:uppercase;letter-spacing:.1em;font-size:.75rem;color:var(--red)}
-.flash .q{font:400 clamp(2rem,5vw,3.2rem)/1.02 var(--head);text-transform:uppercase;margin:12px 0}
-.flash .back div{font-size:1.15rem;font-weight:600;margin-top:10px}
-.flash.flip{background:var(--yel);color:var(--black)}
-.flash.flip .front,.flash:not(.flip) .back{display:none}
-.fctl{display:flex;align-items:center;gap:18px;margin-top:24px;max-width:820px}
-.fctl .btn{font-size:1.05rem;padding:12px 18px}
-#fPos{font:400 1.5rem var(--head)}
-.cvgrid,.roadgrid{display:grid;grid-template-columns:1.2fr .8fr;gap:28px;align-items:start}
-@media(max-width:900px){.cvgrid,.roadgrid{grid-template-columns:1fr}}
-pre.cv{padding:22px;margin:0;white-space:pre-wrap;font:500 .85rem/1.6 ui-monospace,Menlo,Consolas,monospace;max-width:100%;overflow-x:auto}
-.rules{margin:12px 0 22px 20px;display:grid;gap:8px;font-weight:600}
-.lbl{display:grid;gap:6px;font-weight:800;font-size:.78rem;text-transform:uppercase;letter-spacing:.08em}
-.skills{display:grid;gap:10px;margin-top:18px}
-.skill{display:flex;gap:12px;align-items:center;padding:12px 14px;border:2.5px solid var(--line);cursor:pointer;font-weight:600}
-.skill:has(input:checked){background:var(--yel);color:var(--black)}
-.skill input{width:20px;height:20px;flex:none;accent-color:var(--red)}
-.ready b{font:400 4.2rem/1 var(--head);color:var(--red)}
-.ready{font-weight:800;text-transform:uppercase;letter-spacing:.08em}
-.meter2{height:18px;border:3px solid var(--line);background:var(--paper);margin:12px 0 20px}
-.meter2 i{display:block;height:100%;width:0;background:var(--red);transition:width .4s}
-#roadTips{margin:8px 0 22px 18px;display:grid;gap:6px;font-weight:600}
-
-/* forms */
-.form{padding:24px;display:grid;gap:14px;color:var(--ink)}
-.form label{display:grid;gap:6px;font-weight:800;font-size:.78rem;text-transform:uppercase;letter-spacing:.08em}
-.form input,.form select,.form textarea,.lbl select{border:2.5px solid var(--line);background:var(--paper);color:var(--ink);font:600 1rem var(--body);padding:12px 14px;width:100%;border-radius:0}
-.form textarea{min-height:110px;resize:vertical}
-.form .two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-@media(max-width:600px){.form .two{grid-template-columns:1fr}}
-.form .chk{display:flex;gap:10px;align-items:flex-start;text-transform:none;letter-spacing:0;font-size:.92rem;font-weight:600}
-.form .chk input{width:20px;height:20px;flex:none;margin-top:2px;accent-color:var(--red)}
-.form .btn{justify-self:start}
-.hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
-.fmsg{font-weight:800;min-height:1.2em}
-.fmsg.err{color:var(--red)}
-
-/* hiring */
-.hiregrid{display:grid;grid-template-columns:.8fr 1.2fr;gap:36px;align-items:start}
-@media(max-width:900px){.hiregrid{grid-template-columns:1fr}}
-.perks2{list-style:none;padding:0;display:grid;gap:18px}
-.perks2 li{display:flex;gap:14px;font-weight:600;font-size:1.05rem;color:#e9e4d8}
-.perks2 b{font:400 1.6rem/1 var(--head);color:var(--yel);min-width:40px}
-
-/* stories */
-.storygrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:22px;margin-bottom:34px}
-.story{padding:24px}
-.story small{font-weight:800;color:var(--red);text-transform:uppercase;letter-spacing:.08em;font-size:.75rem}
-.story q{display:block;font-weight:600;font-size:1.05rem;margin:10px 0 14px}
-.story b{font:400 1.5rem var(--head);text-transform:uppercase}
-.story.empty{color:var(--mute);font-weight:600}
-details.sform{max-width:760px}
-details.sform summary{cursor:pointer;padding:18px 22px;font:400 1.5rem var(--head);text-transform:uppercase;list-style:none}
-details.sform summary::-webkit-details-marker{display:none}
-details.sform[open] summary{border-bottom:3px solid var(--line)}
-
-/* scam */
-.scam{background:var(--yel);color:var(--black)}
-.scam .kicker{background:var(--black);color:var(--yel)}
-.scam .sub{color:#3a3628}
-.scam h3{font-size:2.2rem}
-.scam a{color:var(--black);font-weight:800}
-.scamgrid{display:grid;grid-template-columns:1fr 1fr;gap:36px;align-items:start}
-@media(max-width:900px){.scamgrid{grid-template-columns:1fr}}
-.flags{list-style:none;padding:0;display:grid;gap:12px;margin:16px 0 22px}
-.flags li{display:flex;gap:12px;font-weight:700;font-size:1.05rem}
-.flags li::before{content:"✕";color:var(--red);font:400 1.4rem/1 var(--head)}
-
-/* about */
-.aboutgrid{display:grid;grid-template-columns:260px 1fr;gap:40px;align-items:center}
-@media(max-width:760px){.aboutgrid{grid-template-columns:1fr}.ph{max-width:220px}}
-.ph{aspect-ratio:1;display:grid;place-items:center;font:400 6rem var(--head);background:var(--red);color:#fff;overflow:hidden}
-.ph img{width:100%;height:100%;object-fit:cover}
-#abRole{font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--red);margin-bottom:14px}
-#abStory{font-size:1.15rem;max-width:640px;margin-bottom:24px;white-space:pre-line}
-.flinks{display:flex;gap:18px;flex-wrap:wrap;margin-top:12px}
-.flinks a{font-weight:800}
-canvas#confetti{position:fixed;inset:0;pointer-events:none;z-index:99}
-
-.rv{opacity:0;transform:translateY(30px);transition:opacity .6s,transform .6s}
-.rv.on{opacity:1;transform:none}
-@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}html{scroll-behavior:auto}}
-</style>
+<link rel="stylesheet" href="site.css">
 </head>
 <body>
 
 <nav><div class="wrap">
   <a class="logo" href="#top">KOOTTAM<span>✦</span></a>
-  <div class="links" id="links"><a href="#join">Join</a><a href="#domains">Groups</a><a href="#prep">Prep</a><a href="#jobs">Jobs</a><a href="#hire">Hiring</a><a href="#stories">Stories</a><a href="#scam">Scam alert</a></div>
+  <div class="links" id="links"><a href="#join">Join</a><a href="#domains">Groups</a><a href="#prep">Prep</a><a href="#jobs">Jobs</a><a href="#stories">Stories</a><a href="#vazha">Vazha challenge</a></div>
   <div class="navr"><button class="burger" id="burger" type="button" aria-expanded="false" aria-controls="links" aria-label="Menu">☰</button><a class="btn" href="#join">Join <b data-c="members">0</b></a></div>
 </div></nav>
 
@@ -553,31 +205,6 @@ Certificate (Issuer, YYYY) · English, Malayalam, Hindi</pre>
   <div id="feed"></div>
 </div></section>
 
-<section class="pledge" id="hire"><div class="wrap rv">
-  <span class="kicker">Hiring?</span>
-  <h2>Find your next hire.<br><mark>Free.</mark></h2>
-  <p class="sub">Post an opening, share a referral or join as an industry lead. We check every post and share it in the right group. No fees, ever.</p>
-  <div class="hiregrid">
-    <ul class="perks2">
-      <li><b>01</b>Your opening goes straight to the right domain group, not a crowded job board.</li>
-      <li><b>02</b>Candidates are already sorted by domain, education and whether they're job seekers or working professionals.</li>
-      <li><b>03</b>Industry leads answer questions in their group and refer the people they trust.</li>
-      <li><b>04</b>Free for companies, recruiters and members. Always.</li>
-    </ul>
-    <form class="box form" data-type="job" novalidate>
-      <div class="two"><label>Your name<input name="name" required data-n="Your name" maxlength="60"></label><label>Phone or email<input name="contact" required data-n="Phone or email" maxlength="80"></label></div>
-      <div class="two"><label>Company<input name="company" required data-n="Company" maxlength="80"></label><label>Role<input name="role" required data-n="Role" maxlength="80" placeholder="e.g. Junior Accountant"></label></div>
-      <div class="two"><label>Domain<select name="domain" required data-n="Domain" data-domains></select></label><label>Location<input name="location" required data-n="Location" maxlength="60" placeholder="e.g. Kochi / Remote / Dubai"></label></div>
-      <div class="two"><label>Type<select name="jobType"><option>Full-time job</option><option>Internship</option><option>Referral</option><option>Walk-in drive</option><option>Part-time / freelance</option></select></label><label>Apply link (optional)<input name="link" maxlength="300" placeholder="https://…"></label></div>
-      <label>Details (optional)<textarea name="details" maxlength="1000" placeholder="Experience needed, salary range, how to apply…"></textarea></label>
-      <label class="chk"><input type="checkbox" name="lead"> I'd also like to be an industry lead: share openings and answer questions in the group.</label>
-      <input class="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
-      <button class="btn" type="submit">Post it →</button>
-      <p class="fmsg" role="status"></p>
-    </form>
-  </div>
-</div></section>
-
 <section id="stories"><div class="wrap rv">
   <span class="kicker">Success stories</span>
   <h2>Got placed?<br><span class="red">Tell the koottam.</span></h2>
@@ -596,35 +223,6 @@ Certificate (Issuer, YYYY) · English, Malayalam, Hindi</pre>
       <p class="fmsg" role="status"></p>
     </form>
   </details>
-</div></section>
-
-<section class="scam" id="scam"><div class="wrap rv">
-  <span class="kicker">Scam alert</span>
-  <h2>If they ask for money,<br>it's a scam.</h2>
-  <p class="sub">Fake agents target job seekers, especially for Gulf and abroad jobs. Report them here and we'll warn every group.</p>
-  <div class="scamgrid">
-    <div>
-      <h3>Red flags</h3>
-      <ul class="flags">
-        <li>They ask for a fee, deposit or "processing charge" for a job or visa</li>
-        <li>An offer without any interview</li>
-        <li>Only a personal WhatsApp number, no office or website</li>
-        <li>Pressure to pay today or "lose the seat"</li>
-        <li>"Guaranteed" visa or salary promises that sound too good</li>
-        <li>They want your original passport or certificates</li>
-      </ul>
-      <p style="font-weight:600">Going abroad? Check the agent is registered on <a href="https://emigrate.gov.in" target="_blank" rel="noopener">eMigrate</a> (Government of India) before you hand over anything.</p>
-    </div>
-    <form class="box form" data-type="scam" novalidate>
-      <h3 style="font-size:1.8rem;color:var(--ink)">Report a scam</h3>
-      <div class="two"><label>Agent or company name<input name="agent" required data-n="Agent or company name" maxlength="100"></label><label>Their phone or website<input name="agentContact" required data-n="Their phone or website" maxlength="120"></label></div>
-      <label>What happened?<textarea name="details" required data-n="What happened" maxlength="1000"></textarea></label>
-      <div class="two"><label>Amount they asked for (optional)<input name="amount" maxlength="40" placeholder="₹"></label><label>Your phone or email (optional)<input name="contact" maxlength="80"></label></div>
-      <input class="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
-      <button class="btn" type="submit">Report it →</button>
-      <p class="fmsg" role="status"></p>
-    </form>
-  </div>
 </div></section>
 
 <section id="about" hidden><div class="wrap rv">
@@ -646,7 +244,7 @@ Certificate (Issuer, YYYY) · English, Malayalam, Hindi</pre>
       </div>
       <div id="vafter" hidden>
         <p class="sub" style="margin-bottom:22px"><b style="color:var(--ink)">Not a vazha anymore.</b> Now prove it: join your group, get the openings, crack the interview.</p>
-        <div class="cta"><button class="btn" type="button" data-start="">Prove it. Join →</button><a class="btn alt" id="vshare" href="#" target="_blank" rel="noopener">Share on WhatsApp</a></div>
+        <div class="cta"><button class="btn" type="button" data-start="">Prove it. Join →</button></div>
         <button class="again" type="button" id="vagain">Grow it back and cut again ↺</button>
       </div>
     </div>
@@ -693,6 +291,17 @@ Certificate (Issuer, YYYY) · English, Malayalam, Hindi</pre>
       </button>
       <div id="vdots" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
       <p id="vstatus" aria-live="polite">Tap the tree. 5 cuts.</p>
+      <div class="vshare" id="vsharebar">
+        <p class="vshare-h" id="vshareh">Challenge your friends 🪓</p>
+        <div class="vshare-row">
+          <a class="sh wa" data-net="wa" href="#" target="_blank" rel="noopener">WhatsApp</a>
+          <a class="sh" data-net="fb" href="#" target="_blank" rel="noopener">Facebook</a>
+          <a class="sh" data-net="x" href="#" target="_blank" rel="noopener">X</a>
+          <a class="sh" data-net="tg" href="#" target="_blank" rel="noopener">Telegram</a>
+          <button class="sh" type="button" data-net="native" hidden>More… (Instagram)</button>
+        </div>
+        <div class="vlink"><code id="vlink"></code><button class="sh" type="button" id="vcopy">Copy link</button></div>
+      </div>
     </div>
   </div>
 </div></section>
@@ -704,8 +313,8 @@ Certificate (Issuer, YYYY) · English, Malayalam, Hindi</pre>
 </div></section>
 
 <footer><div class="wrap">
-  <div>© 2026 Koottam · A job for every Mallu.<small>Member counts are live sign-ups.</small><div class="flinks" id="flinks"><a href="privacy.html">Privacy</a><a href="#hire">Post a job</a><a href="#scam">Report a scam</a></div></div>
-  <div>Never pay anyone for a job.<small>Koottam is free, forever.</small></div>
+  <div class="tabbar" role="navigation" aria-label="More from Koottam"><a href="./#join">Join</a><a href="vazha.html">🪓 Vazha challenge</a><a href="hire.html">Hiring? Post a job</a><a href="scam.html">Report a scam</a><a href="privacy.html">Privacy</a></div>
+  <div class="fbase"><div>© 2026 Koottam · A job for every Mallu.<small>Member counts are live sign-ups.</small><div class="flinks" id="flinks"></div></div><div>Never pay anyone for a job.<small>Koottam is free, forever.</small></div></div>
 </div></footer>
 <div class="wl" id="wl">
   <div class="nudge" id="nudge" hidden><button class="nx" id="nudgeX" type="button" aria-label="Dismiss">×</button>Looking for a job? I'll find your group in 30 seconds 👋</div>
@@ -714,31 +323,11 @@ Certificate (Issuer, YYYY) · English, Malayalam, Hindi</pre>
 <div class="widget" id="widget" role="dialog" aria-label="Join Koottam" hidden><div class="wbody" id="wbody"></div></div>
 <canvas id="confetti"></canvas>
 
+<script src="config.js"></script>
+<script src="common.js"></script>
 <script>
 (()=>{
-const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
-const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
-const store={get(k,d){try{return JSON.parse(localStorage.getItem(k))??d}catch{return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch{}}};
-const fmt=n=>n.toLocaleString('en-IN');
-const esc=t=>String(t).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const wait=ms=>new Promise(r=>setTimeout(r,reduce?0:ms));
-
-/* ---------- config: fill these in to go fully live (see SETUP.md) ---------- */
-const CONFIG={
-  API_URL:'',           // Google Apps Script web app URL: GET = live counts/jobs/stories, POST = sign-ups and forms
-  SITE_URL:'https://anoopkm0071-ops.github.io/koottam/', // base for members' invite links
-  GROUP_LINKS:{},       // group slug -> invite URL, e.g. 'marketing-job-seekers':'https://chat.whatsapp.com/XXXX'
-  DOMAIN_LINKS:{},      // domain id -> fallback invite URL, e.g. mkt:'https://chat.whatsapp.com/YYYY'
-  DEFAULT_LINK:'',      // catch-all community link
-  FOUNDER:{name:'',role:'Founder, Koottam',photo:'',story:'',instagram:'',whatsapp:'',email:''}, // shows "Who's behind this" once name is set
-  INSTAGRAM:'',         // e.g. 'https://instagram.com/koottam'
-  GOATCOUNTER:''        // free analytics: your GoatCounter code, e.g. 'koottam' for koottam.goatcounter.com
-};
-if(/^[a-z0-9-]+$/.test(CONFIG.GOATCOUNTER)){const g=document.createElement('script');g.async=true;g.src='https://gc.zgo.at/count.js';g.dataset.goatcounter=`https://${CONFIG.GOATCOUNTER}.goatcounter.com/count`;document.head.appendChild(g)}
-const safe=u=>/^https:\/\//.test(u||'')?u:'';
-const EMAIL_RE=/^\S+@\S+\.\S+$/;
-const isPhone=t=>/^(\+?91)?[6-9]\d{9}$/.test(String(t).replace(/[\s-]+/g,''));
-
+const {$,$$,reduce,store,fmt,esc,wait,safe,EMAIL_RE,isPhone,CONFIG,burst,copyText,siteUrl}=window.K;
 /* ---------- data ---------- */
 const ROADMAPS={"it":{"skills":["HTML / CSS / JavaScript","A modern framework (React / Angular)","Git & GitHub","REST APIs & databases (SQL)","Data structures basics","A portfolio project online","English communication","Resume with measurable impact"],"tips":["Build 2 real projects, not 10 tutorials","Push everything to GitHub","Practise aptitude + DSA 30 min daily"]},"health":{"skills":["Registered with Kerala Nursing Council","Clinical specialty experience","BLS / ACLS certification","IELTS / OET score","Patient communication","Medical documentation","Country licensing exam knowledge"],"tips":["Book OET/IELTS early, it is the usual bottleneck","Keep certificates verified and scanned","Use only licensed recruiters"]},"bank":{"skills":["Quantitative aptitude","Reasoning","English & banking awareness","Tally / accounting software","Excel (lookups, pivots)","GST basics","Customer handling"],"tips":["Take one mock test every weekend","Read daily financial news","Learn Excel pivot tables, it wins interviews"]},"gulf":{"skills":["Passport valid 2+ years","Attested certificates","Updated CV in international format","Trade test / skill certificate","Basic Arabic or English fluency","Knowledge of scam red flags"],"tips":["Never pay for a visa or an offer letter","Verify the agency on eMigrate","Join country-specific rooms for real salary info"]},"edu":{"skills":["B.Ed / required qualification","KTET / CTET / SET","Subject depth","Smartboard & online teaching tools","Demo class confidence","Classroom management"],"tips":["Record a 5-minute demo class and get feedback","Clear KTET/SET, it opens many doors","Build a small online teaching portfolio"]},"hosp":{"skills":["Hotel management qualification","Front-office software","Food safety awareness","Foreign language (any)","Guest handling","Grooming & etiquette"],"tips":["Kerala tourism hires seasonally, start in August","Cruise and resort jobs ask for English fluency","Get HACCP / food-safety certificates"]},"eng":{"skills":["AutoCAD / Revit","Site experience","Estimation & BOQ","Safety certification (NEBOSH / OSHA)","MS Project / Primavera","Site communication"],"tips":["Safety certificates raise Gulf offers","Learn Revit/BIM, demand is climbing","Document site experience with photos & figures"]},"sales":{"skills":["Communication & persuasion","Objection handling","CRM tools","Excel reporting","Cold outreach practice","Product & customer knowledge","Target & pipeline tracking"],"tips":["Show numbers: calls, conversions, revenue closed","Practise a 60-second pitch out loud daily","Learn one CRM end to end"]},"mkt":{"skills":["Ad platforms (Meta / Google Ads)","Analytics (GA4, attribution)","SEO fundamentals","Copywriting","Landing page & funnel thinking","Budget, CAC & ROAS basics","Excel / dashboards","A case study with real numbers"],"tips":["Run a small real campaign and document the results","Learn to read CAC, ROAS and conversion rate","Publish 3 case studies with before/after metrics"]},"founder":{"skills":["Structured problem-solving","Excel / Sheets modelling","Writing crisp memos & decks","Basic SQL / data analysis","Project & stakeholder management","Startup & business fundamentals","One project you drove end to end"],"tips":["Show ownership: a thing you started and shipped","Practise breaking vague problems into numbers","Write one-page memos on startups you admire"]},"govt":{"skills":["Kerala PSC syllabus mapped","Daily current affairs","Previous-year paper practice","English language & communication","Mental ability & maths","Mock tests weekly"],"tips":["Make a syllabus tracker, not a book pile","Previous papers are 60% of preparation","Join a study circle for accountability"]},"creative":{"skills":["Figma / design tools","Portfolio site","Video editing","Copywriting","Brand sense","Client communication"],"tips":["3 deep case studies beat 20 screenshots","Redesign a local brand as practice","Freelance small jobs to build proof"]}};
 const CARDS=[["HR","Tell me about yourself.","Use Present → Past → Future in 60 seconds. \"I'm a [role/degree] who recently [achievement]. Before that I [relevant experience]. I'm now looking for [role] where I can [value you add].\" No life story, no family details."],["HR","Why should we hire you?","Match one strength to their need with proof. \"You need someone who can [need]. In [project/job] I [action] and got [result]. I can bring the same here.\""],["HR","What is your biggest weakness?","Pick a real, fixable one and show progress. \"I used to avoid public speaking. I joined a speaking circle and now present weekly.\" Never say \"I work too hard\"."],["HR","Why did you leave / why the gap in your CV?","Be short, honest and forward-looking. Name what you did in the gap (course, caregiving, preparing for exams) and what you learned. Then pivot to why you're ready now."],["HR","Where do you see yourself in 5 years?","Show growth in the same direction as the role. \"Becoming a strong [skill] contributor, maybe leading a small team.\" Avoid \"in your seat\" or \"abroad\"."],["HR","What salary do you expect?","Research the range first. \"Based on my skills and market range, I'm looking at ₹X to ₹Y, but I'm flexible for the right growth.\" As a fresher, learning and role matter first."],["Tech","Explain a project you built.","Problem → your role → tools → hardest bug → result. Keep one number: users, time saved, marks, speed. Be ready to go deeper on any tool you name."],["Tech","What happens when you type a URL and press Enter?","DNS lookup → TCP/TLS handshake → HTTP request → server processes → response → browser parses HTML, fetches CSS/JS, renders. Shows you understand the whole chain."],["Tech","Difference between SQL and NoSQL?","SQL: structured tables, strong relations and transactions. NoSQL: flexible schema, easier horizontal scale. Choose by data shape and consistency need. Give one example of each."],["Banking","Explain repo rate in simple words.","The rate at which RBI lends short-term money to banks. Higher repo → loans costlier → inflation cools. Lower repo → cheaper loans → growth. Link it to home-loan EMIs."],["Banking","How would you handle an angry customer?","Listen fully, apologise for the experience, restate the problem, offer a solution or a clear next step with a timeline, follow up. Stay calm; never argue."],["Nursing","A patient's condition suddenly worsens. What do you do?","Assess ABCs, call for help / rapid response, start immediate interventions within scope, inform the doctor with SBAR, document accurately. Calm, systematic, communicative."],["Gulf","Why do you want to work abroad?","Be positive and specific: skill growth, exposure, the company's scale. Avoid \"only for money\". Show you researched the country and role, and know your documents."],["Teaching","Teach me a concept in 2 minutes.","Hook with a real-life example, explain in 3 simple steps, check understanding with a question, summarise. Practise out loud with a timer."],["HR","Do you have any questions for us?","Always ask 2: \"What does success look like in the first 90 days?\" and \"What do you enjoy most about working here?\" Never ask about leave first."]];
@@ -762,9 +351,7 @@ const KW={mkt:/market|seo|brand|social|advert|growth/i,sales:/sales|business dev
 const EDU=[{v:'10',l:'SSLC / 10th'},{v:'12',l:'Plus Two'},{v:'diploma',l:'Diploma / ITI'},{v:'degree',l:'Degree'},{v:'pg',l:'Post-graduate'},{v:'prof',l:'Professional (B.Tech, CA, MBBS…)'}];
 const STATUS=[{v:'unemployed',l:'🔎 Unemployed, looking for a job',g:'Job seekers'},{v:'employed',l:'💼 Employed, looking for a change',g:'Working professionals'}];
 
-/* ---------- reveal ---------- */
-const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('on');io.unobserve(e.target)}}),{threshold:.08});
-$$('.rv').forEach(el=>io.observe(el));
+K.initReveal();
 
 /* ---------- live numbers (real, from the sign-up sheet) ---------- */
 let state=store.get('koottam_live',{});
@@ -844,10 +431,6 @@ flash.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventD
 $('#fNext').addEventListener('click',()=>{fi=(fi+1)%CARDS.length;showCard()});
 $('#fPrev').addEventListener('click',()=>{fi=(fi-1+CARDS.length)%CARDS.length;showCard()});
 showCard();
-async function copyText(t,btn,label){
-  try{await navigator.clipboard.writeText(t)}catch{const ta=document.createElement('textarea');ta.value=t;document.body.appendChild(ta);ta.select();try{document.execCommand('copy')}catch{}ta.remove()}
-  btn.textContent='Copied ✓';setTimeout(()=>btn.textContent=label,1800);
-}
 $('#copyCv').addEventListener('click',e=>copyText($('#cvText').textContent,e.currentTarget,'Copy template'));
 const roadSel=$('#roadDom');let road=store.get('koottam_road',{});
 roadSel.innerHTML=DOMAINS.map(d=>`<option value="${d.id}">${d.e} ${d.n}</option>`).join('');
@@ -865,30 +448,11 @@ function calcRoad(){
 }
 roadSel.addEventListener('change',renderRoad);$('#roadSkills').addEventListener('change',calcRoad);
 
-/* ---------- forms: hiring, stories, scam reports ---------- */
-const OKMSG={job:"✓ Got it! We'll check your post and share it in the right group.",story:"✓ Thank you! Your story will appear here once we've checked it.",scam:'✓ Report received. Thank you for protecting other Mallus.'};
-$$('select[data-domains]').forEach(x=>x.innerHTML='<option value="">Choose…</option>'+DOMAINS.map(d=>`<option value="${d.id}">${d.n}</option>`).join('')+'<option value="other">Other</option>');
-$$('form.form').forEach(f=>f.addEventListener('submit',async e=>{
-  e.preventDefault();
-  const msg=f.querySelector('.fmsg'),btn=f.querySelector('button[type=submit]'),bad=t=>{msg.className='fmsg err';msg.textContent=t};
-  for(const el of f.querySelectorAll('[required]'))if(el.type==='checkbox'?!el.checked:!el.value.trim()){bad('Please fill in: '+el.dataset.n);el.focus();return}
-  const data=Object.fromEntries(new FormData(f));
-  if(data.contact&&!(isPhone(data.contact)||EMAIL_RE.test(data.contact.trim())))return bad('Enter a valid 10-digit mobile number or email.');
-  if(data.link&&!safe(data.link.trim()))return bad('Links must start with https://');
-  if(!CONFIG.API_URL)return bad("Submissions open as soon as our sheet is connected. Please check back soon.");
-  btn.disabled=true;msg.className='fmsg';msg.textContent='Sending…';
-  try{
-    const j=await (await fetch(CONFIG.API_URL,{method:'POST',body:JSON.stringify({type:f.dataset.type,...data})})).json();
-    if(!j.ok)throw 0;
-    f.reset();msg.className='fmsg';msg.textContent=OKMSG[f.dataset.type];
-  }catch{bad('Something went wrong. Please try again.')}
-  btn.disabled=false;
-}));
+K.initForms();
 
-/* ---------- who's behind this + footer links ---------- */
+/* ---------- who's behind this ---------- */
 (function about(){
   const F=CONFIG.FOUNDER||{};
-  if(safe(CONFIG.INSTAGRAM))$('#flinks').insertAdjacentHTML('beforeend',`<a href="${esc(CONFIG.INSTAGRAM)}" target="_blank" rel="noopener">Instagram</a>`);
   if(!F.name)return;
   $('#about').hidden=false;$('#abName').textContent=F.name;$('#abRole').textContent=F.role||'';$('#abStory').textContent=F.story||'';
   const ph=$('#abPhoto');
@@ -900,47 +464,9 @@ $$('form.form').forEach(f=>f.addEventListener('submit',async e=>{
   $('#abLinks').innerHTML=L.map(([t,u],i)=>`<a class="btn${i?' ghost':''}" href="${esc(u)}" target="_blank" rel="noopener">${t} →</a>`).join('');
 })();
 
-/* ---------- vazha challenge: tap the banana tree five times ---------- */
-const vst=$('#vstage'),vtop=$('#vtop'),notch=$('#notch'),vaxe=$('#vaxe'),VCUTS=5;let cuts=0;
-function vchips(depth){
-  if(reduce)return;
-  const r=vst.getBoundingClientRect(),x=(170+depth)/400*r.width,y=316/480*r.height;
-  for(let i=0;i<10;i++){
-    const c=document.createElement('i');c.className='chipw';c.style.left=x+'px';c.style.top=y+'px';vst.appendChild(c);
-    const dx=-(25+Math.random()*90),dy=-(10+Math.random()*80),rot=(Math.random()-.5)*540;
-    c.animate([{transform:'translate(0,0) rotate(0)',opacity:1},{transform:`translate(${dx}px,${dy+60}px) rotate(${rot}deg)`,opacity:0}],{duration:650+Math.random()*250,easing:'cubic-bezier(.2,.7,.4,1)'}).onfinish=()=>c.remove();
-  }
-}
-function vcut(){
-  if(cuts>=VCUTS)return;
-  cuts++;const d=cuts/VCUTS*58;
-  notch.setAttribute('points',`170,${316-cuts*3} ${170+d},316 170,${316+cuts*3}`);
-  vaxe.classList.remove('swing');void vaxe.getBoundingClientRect();vaxe.classList.add('swing');
-  vtop.classList.remove('hit');void vtop.getBoundingClientRect();vtop.classList.add('hit');
-  vchips(d);try{navigator.vibrate&&navigator.vibrate(cuts<VCUTS?25:[40,60,80])}catch{}
-  $$('#vdots i').forEach((x,i)=>x.classList.toggle('on',i<cuts));
-  $('#vstatus').textContent=cuts<VCUTS?`${VCUTS-cuts} more ${VCUTS-cuts>1?'cuts':'cut'}…`:'Timber!';
-  if(cuts===VCUTS)setTimeout(()=>{vtop.classList.remove('hit');vtop.classList.add('fallen');setTimeout(vdone,reduce?0:1150)},reduce?0:320);
-}
-function vdone(){
-  $('#vstamp').hidden=false;vaxe.classList.add('gone');$('#vbefore').hidden=true;$('#vafter').hidden=false;
-  $('#vstatus').textContent='Not a vazha anymore ✊';
-  const link=(CONFIG.SITE_URL||location.href.split(/[?#]/)[0])+(state.memberNo?`?ref=${state.memberNo}`:'');
-  $('#vshare').href='https://wa.me/?text='+encodeURIComponent(`I just cut my vazha 🪓 Not a vazha anymore. Join Koottam, the movement for Mallu jobs: ${link}`);
-  burst();
-}
-function vregrow(){
-  cuts=0;vtop.classList.remove('fallen','hit');notch.setAttribute('points','170,316 170,316 170,316');
-  $('#vstamp').hidden=true;vaxe.classList.remove('gone');$('#vbefore').hidden=false;$('#vafter').hidden=true;
-  $$('#vdots i').forEach(x=>x.classList.remove('on'));$('#vstatus').textContent='Tap the tree. 5 cuts.';
-}
-vst.addEventListener('click',vcut);
-$('#vagain').addEventListener('click',vregrow);
-
-/* ---------- mobile menu ---------- */
-const burger=$('#burger'),links=$('#links');
-burger.addEventListener('click',()=>burger.setAttribute('aria-expanded',links.classList.toggle('open')));
-links.addEventListener('click',e=>{if(e.target.closest('a')){links.classList.remove('open');burger.setAttribute('aria-expanded','false')}});
+K.initVazha(()=>state.memberNo);
+K.initMenu();
+K.initFooter();
 
 /* ---------- guide (join flow: name, number, education, domain, status) ---------- */
 const STEPS=[
@@ -990,7 +516,7 @@ function buildGroup(p){
 }
 function showResult(){
   const p=prof,g=state.group,u=linkFor(g);
-  const reflink=`${CONFIG.SITE_URL||location.href.split(/[?#]/)[0]}?ref=${state.memberNo}`;
+  const reflink=`${siteUrl()}?ref=${state.memberNo}`;
   const share=`I just joined Koottam as member #${fmt(state.memberNo)} ✊ Not a vazha anymore. Mission: a job for every Mallu. Join free: ${reflink}`;
   $('#result').innerHTML=`
    <div class="mcard">
@@ -1103,19 +629,6 @@ function initGuide(){
   if(state.profile&&state.group){prof=state.profile;stepI=STEPS.length;$('#chatProg').style.width='100%';
     say(`Welcome back, ${prof.name.split(' ')[0]}! You're in ${state.group.n}. Hit Restart to change your group.`);showResult();}
   else runStep();
-}
-
-/* ---------- confetti ---------- */
-function burst(){
-  if(reduce)return;
-  const cv=$('#confetti'),ctx=cv.getContext('2d');cv.width=innerWidth;cv.height=innerHeight;
-  const cols=['#e8202a','#ffd60a','#0d0d0d','#ffffff'];
-  const ps=Array.from({length:160},()=>({x:innerWidth/2,y:innerHeight*.6,vx:(Math.random()-.5)*18,vy:-Math.random()*17-4,s:5+Math.random()*7,c:cols[Math.random()*4|0],r:Math.random()*6}));
-  let f=0;(function tick(){
-    ctx.clearRect(0,0,cv.width,cv.height);
-    ps.forEach(p=>{p.vy+=.38;p.x+=p.vx;p.y+=p.vy;p.r+=.2;ctx.fillStyle=p.c;ctx.save();ctx.translate(p.x,p.y);ctx.rotate(p.r);ctx.fillRect(-p.s/2,-p.s/2,p.s,p.s*.6);ctx.restore()});
-    if(++f<130)requestAnimationFrame(tick);else ctx.clearRect(0,0,cv.width,cv.height);
-  })();
 }
 
 if(state.profile&&ROADMAPS[state.profile.dom])roadSel.value=state.profile.dom;

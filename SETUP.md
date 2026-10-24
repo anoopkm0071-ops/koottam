@@ -1,5 +1,7 @@
 # Koottam: go-live setup
 
+All settings live in one file, `config.js`. Every page reads it.
+
 The site is a single file, `index.html`, served by GitHub Pages. Sign-ups go to a Google Sheet through a small Apps Script, which also serves the live member counts.
 
 ## 1. Switch on GitHub Pages (1 minute)
@@ -16,7 +18,7 @@ The site is a single file, `index.html`, served by GitHub Pages. Sign-ups go to 
    - **Execute as:** Me
    - **Who has access:** Anyone
 5. Click **Deploy**, approve the Google permissions prompt, then copy the **Web app URL**. It ends in `/exec`.
-6. In `index.html`, find `CONFIG` and paste the URL into `API_URL: '...'`. Commit the change, and the live site picks it up.
+6. Open `config.js` and paste the URL into `API_URL: '...'`. Commit the change, and every page picks it up.
 
 The script creates four tabs on its own:
 
@@ -34,7 +36,7 @@ The website can only read totals, approved jobs and approved stories. It never s
 If you edit `Code.gs` later, use **Deploy → Manage deployments → Edit → Version: New version**, so the URL stays the same.
 
 ## 3. Add WhatsApp group invite links
-Create the groups in WhatsApp (**Group → Invite via link → Copy link**), then fill in `CONFIG.GROUP_LINKS` in `index.html`:
+Create the groups in WhatsApp (**Group → Invite via link → Copy link**), then fill in `GROUP_LINKS` in `config.js`:
 
 ```js
 GROUP_LINKS:{
@@ -51,7 +53,7 @@ Group names follow the pattern `<domain>-job-seekers` and `<domain>-working-prof
 Until a link is set, members see "Invite on the way", and you can add them by hand from the sheet.
 
 ## 4. "Who's behind this" section
-People trust a face. In `index.html`, fill in `CONFIG.FOUNDER`. The section stays hidden until `name` is set.
+People trust a face. In `config.js`, fill in `FOUNDER`. The section stays hidden until `name` is set.
 
 ```js
 FOUNDER:{
@@ -68,13 +70,13 @@ INSTAGRAM:'https://instagram.com/koottam',   // adds an Instagram link to the fo
 
 ## 5. Visitor stats (optional, free)
 1. Sign up at https://www.goatcounter.com and pick a code, for example `koottam`.
-2. Set `GOATCOUNTER:'koottam'` in `CONFIG`.
+2. Set `GOATCOUNTER:'koottam'` in `config.js`.
 3. See visits, top pages and where people came from (WhatsApp, Instagram and so on) at `https://koottam.goatcounter.com`.
 
 ## 6. Invite links
 Every member gets a personal link like `…/koottam/?ref=42`. Anyone who joins through it is recorded in the **Referred by** column, and the member sees "🔗 N Mallus joined through your link". To find your top recruiters, sort the **Members** tab by **Referred by** and count.
 
-If you move to a custom domain, update `SITE_URL` in `CONFIG` so invite links use it.
+If you move to a custom domain, update `SITE_URL` in `config.js` so invite links use it.
 
 ## Custom domain (optional)
-To use your own domain, go to **Settings → Pages → Custom domain**, enter it, and add the DNS record GitHub shows you. Then update `SITE_URL` in `CONFIG`, plus the `og:url` and `og:image` tags at the top of `index.html`, so WhatsApp previews keep working.
+To use your own domain, go to **Settings → Pages → Custom domain**, enter it, and add the DNS record GitHub shows you. Then update `SITE_URL` in `config.js`, plus the `og:url` and `og:image` tags at the top of each `.html` page, so WhatsApp previews keep working.

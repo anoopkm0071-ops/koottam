@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Koottam Hiring</title>
+<meta name="description" content="Post an opening, share a referral or join as an industry lead. Free, and shared straight to the right Koottam group.">
+<meta name="theme-color" content="#e8202a">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Koottam">
+<meta property="og:title" content="Hiring? Reach Mallus who want to work. Free.">
+<meta property="og:description" content="Post an opening, share a referral or join as an industry lead. Free, and shared straight to the right Koottam group.">
+<meta property="og:url" content="https://anoopkm0071-ops.github.io/koottam/hire.html">
+<meta property="og:image" content="https://anoopkm0071-ops.github.io/koottam/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="site.css">
+</head>
+<body>
+
+<nav><div class="wrap">
+  <a class="logo" href="./">KOOTTAM<span>✦</span></a>
+  <div class="links" id="links"><a href="./#join">Join</a><a href="./#prep">Prep</a><a href="./#jobs">Jobs</a><a href="vazha.html">Vazha challenge</a></div>
+  <div class="navr"><button class="burger" id="burger" type="button" aria-expanded="false" aria-controls="links" aria-label="Menu">☰</button><a class="btn" href="./#join">Join</a></div>
+</div></nav>
+
+<section class="pledge" id="hire" style="border-bottom:3px solid var(--line)"><div class="wrap rv">
+  <span class="kicker">Hiring?</span>
+  <h2>Find your next hire.<br><mark>Free.</mark></h2>
+  <p class="sub">Post an opening, share a referral or join as an industry lead. We check every post and share it in the right group. No fees, ever.</p>
+  <div class="hiregrid">
+    <ul class="perks2">
+      <li><b>01</b>Your opening goes straight to the right domain group, not a crowded job board.</li>
+      <li><b>02</b>Candidates are already sorted by domain, education and whether they're job seekers or working professionals.</li>
+      <li><b>03</b>Industry leads answer questions in their group and refer the people they trust.</li>
+      <li><b>04</b>Free for companies, recruiters and members. Always.</li>
+    </ul>
+    <form class="box form" data-type="job" novalidate>
+      <div class="two"><label>Your name<input name="name" required data-n="Your name" maxlength="60"></label><label>Phone or email<input name="contact" required data-n="Phone or email" maxlength="80"></label></div>
+      <div class="two"><label>Company<input name="company" required data-n="Company" maxlength="80"></label><label>Role<input name="role" required data-n="Role" maxlength="80" placeholder="e.g. Junior Accountant"></label></div>
+      <div class="two"><label>Domain<select name="domain" required data-n="Domain" data-domains></select></label><label>Location<input name="location" required data-n="Location" maxlength="60" placeholder="e.g. Kochi / Remote / Dubai"></label></div>
+      <div class="two"><label>Type<select name="jobType"><option>Full-time job</option><option>Internship</option><option>Referral</option><option>Walk-in drive</option><option>Part-time / freelance</option></select></label><label>Apply link (optional)<input name="link" maxlength="300" placeholder="https://…"></label></div>
+      <label>Details (optional)<textarea name="details" maxlength="1000" placeholder="Experience needed, salary range, how to apply…"></textarea></label>
+      <label class="chk"><input type="checkbox" name="lead"> I'd also like to be an industry lead: share openings and answer questions in the group.</label>
+      <input class="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <button class="btn" type="submit">Post it →</button>
+      <p class="fmsg" role="status"></p>
+    </form>
+  </div>
+</div></section>
+
+
+<footer><div class="wrap">
+  <div class="tabbar" role="navigation" aria-label="More from Koottam"><a href="./#join">Join</a><a href="vazha.html">🪓 Vazha challenge</a><a href="hire.html" class="on" aria-current="page">Hiring? Post a job</a><a href="scam.html">Report a scam</a><a href="privacy.html">Privacy</a></div>
+  <div class="fbase"><div>© 2026 Koottam · A job for every Mallu.<small>Member counts are live sign-ups.</small><div class="flinks" id="flinks"></div></div><div>Never pay anyone for a job.<small>Koottam is free, forever.</small></div></div>
+</div></footer>
+<canvas id="confetti"></canvas>
+<script src="config.js"></script>
+<script src="common.js"></script>
+<script>
+K.initReveal();K.initMenu();K.initForms();K.initFooter();
+</script>
+</body>
+</html>
