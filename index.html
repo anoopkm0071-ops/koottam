@@ -208,6 +208,42 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
 footer small{display:block;color:var(--mute);font-weight:400;margin-top:6px}
 
 .joinwrap>*,.hiregrid>*,.scamgrid>*,.cvgrid>*,.roadgrid>*,.aboutgrid>*{min-width:0}
+/* chat widget */
+.wl{position:fixed;right:20px;bottom:20px;z-index:60;display:flex;flex-direction:column;align-items:flex-end;gap:12px;transition:opacity .2s,transform .2s}
+.wl.hide{opacity:0;transform:translateY(20px);pointer-events:none}
+.launcher{position:relative;display:flex;align-items:center;gap:10px;background:var(--red);color:#fff;border:3px solid var(--line);box-shadow:5px 5px 0 var(--line);padding:12px 18px 12px 14px;font:400 1.15rem/1 var(--head);text-transform:uppercase;letter-spacing:.03em;cursor:pointer;transition:transform .12s,box-shadow .12s}
+.launcher:hover{transform:translate(-2px,-2px);box-shadow:7px 7px 0 var(--line)}
+.launcher::before{content:"";position:absolute;top:-7px;right:-7px;width:14px;height:14px;border-radius:50%;background:var(--yel);border:2px solid var(--black);animation:blink 1.2s infinite}
+.launcher .li{font-size:1.35rem;line-height:1}
+.nudge{position:relative;max-width:250px;background:var(--card);color:var(--ink);border:3px solid var(--line);box-shadow:5px 5px 0 var(--line);padding:14px 30px 14px 16px;font-weight:700;font-size:.92rem;cursor:pointer;animation:pop .35s}
+.nx{position:absolute;top:4px;right:6px;border:0;background:none;color:var(--ink);font-size:1.3rem;line-height:1;cursor:pointer;padding:2px 4px}
+.widget{position:fixed;right:20px;bottom:20px;z-index:70;width:400px;max-width:calc(100vw - 40px);max-height:calc(100vh - 110px);display:flex;flex-direction:column;animation:pop .25s}
+.widget[hidden]{display:none}
+.wbody{overflow-y:auto;padding:0 12px 12px 0}
+.widget .log{height:min(46vh,380px)}
+.widget .mcard{margin-top:18px;box-shadow:6px 6px 0 var(--line)}
+.widget .refbox{box-shadow:6px 6px 0 var(--line)}
+.wclose{display:none;width:34px;height:34px;margin-left:8px;border:2px solid var(--black);background:transparent;color:var(--black);font:800 1rem var(--body);cursor:pointer;flex:none}
+.widget .wclose{display:grid;place-items:center}
+.reset{white-space:nowrap}
+.widget .chat-head{gap:10px;padding:12px 14px}
+.widget .chat-head b{font-size:1.2rem;white-space:nowrap}
+.widget .chat-head small{font-size:.75rem;white-space:nowrap}
+.widget .av2{width:38px;height:38px;font-size:1.2rem}
+.widget .reset{font-size:0;padding:5px 9px}
+.widget .reset::before{content:"↺";font-size:1.05rem}
+.widget .chat-head>div{min-width:0}
+.away{padding:26px;font-weight:700;display:flex;flex-direction:column;gap:16px;align-items:flex-start}
+.away[hidden]{display:none}
+@media(max-width:600px){
+  .wl{right:14px;bottom:14px}
+  .widget{inset:0;width:auto;max-width:none;max-height:none}
+  .wbody{padding:0;height:100%;background:var(--paper)}
+  .widget .chat{border:0;box-shadow:none;min-height:100%;display:flex;flex-direction:column}
+  .widget .log{flex:1;height:auto;min-height:40vh}
+  .widget #result{padding:0 16px 24px}
+  body.wopen{overflow:hidden}
+}
 /* consent + invite box */
 .consent{padding:0 18px 16px;font-size:.82rem;color:var(--mute);font-weight:600}
 .refbox{margin-top:22px;padding:22px}
@@ -379,9 +415,10 @@ canvas#confetti{position:fixed;inset:0;pointer-events:none;z-index:99}
       <p style="margin-top:22px;color:var(--mute);font-weight:600">We add you to the right group and send your invite on WhatsApp. Then you get your member card.</p>
       <p style="margin-top:10px;color:var(--mute);font-size:.9rem">🔒 Your number is only used for your group and job alerts. We never sell it. <a href="privacy.html">Privacy policy</a></p>
     </div>
-    <div>
+    <div id="chatHome">
+      <div class="box away" id="chatAway" hidden>💬 The Koottam Guide is open in the chat window.<button class="btn ghost" type="button" id="bringBack">Show it here</button></div>
       <div class="box chat">
-        <div class="chat-head"><span class="av2">K</span><div><b>Koottam Guide</b><small>● Online · replies instantly</small></div><button class="reset" id="chatReset" type="button">↺ Restart</button></div>
+        <div class="chat-head"><span class="av2">K</span><div><b>Koottam Guide</b><small>● Online · replies instantly</small></div><button class="reset" id="chatReset" type="button">↺ Restart</button><button class="wclose" id="wclose" type="button" aria-label="Close chat">✕</button></div>
         <div class="prog"><i id="chatProg"></i></div>
         <div class="log" id="chatLog" aria-live="polite"></div>
         <div class="opts" id="chatOpts"></div>
@@ -577,6 +614,11 @@ Certificate (Issuer, YYYY) · English, Malayalam, Hindi</pre>
   <div>© 2026 Koottam · A job for every Mallu.<small>Member counts are live sign-ups.</small><div class="flinks" id="flinks"><a href="privacy.html">Privacy</a><a href="#hire">Post a job</a><a href="#scam">Report a scam</a></div></div>
   <div>Never pay anyone for a job.<small>Koottam is free, forever.</small></div>
 </div></footer>
+<div class="wl" id="wl">
+  <div class="nudge" id="nudge" hidden><button class="nx" id="nudgeX" type="button" aria-label="Dismiss">×</button>Looking for a job? I'll find your group in 30 seconds 👋</div>
+  <button class="launcher" id="launcher" type="button" aria-expanded="false" aria-controls="widget"><span class="li">💬</span><span>Join Koottam</span></button>
+</div>
+<div class="widget" id="widget" role="dialog" aria-label="Join Koottam" hidden><div class="wbody" id="wbody"></div></div>
 <canvas id="confetti"></canvas>
 
 <script>
@@ -887,15 +929,45 @@ async function finish(){
 }
 function restart(domId){
   gen++;
-  const id=state.profile?{name:state.profile.name,phone:state.profile.phone,edu:state.profile.edu}:{};
+  const k=state.profile||prof,id={};['name','phone','edu'].forEach(x=>{if(k[x])id[x]=k[x]}); // keep answers already given
   prof={...id,...(domId?{dom:domId}:{})};stepI=0;
   log.innerHTML='';optsEl.innerHTML='';tform.hidden=true;$('#result').innerHTML='';runStep();
 }
 $('#chatReset').addEventListener('click',()=>restart());
 document.addEventListener('click',e=>{
   const b=e.target.closest('[data-start]');if(!b)return;
-  restart(b.dataset.start);$('#join').scrollIntoView({behavior:reduce?'auto':'smooth'});
+  if(widget.hidden&&!joinInView)openWidget();
+  restart(b.dataset.start);
 });
+
+/* ---------- chat widget: the same guide, floating ---------- */
+const widget=$('#widget'),wbody=$('#wbody'),wl=$('#wl'),launcher=$('#launcher'),nudge=$('#nudge'),chatHome=$('#chatHome'),chatBox=$('.chat'),resultEl=$('#result');
+let joinInView=false;
+const sess={get(k){try{return sessionStorage.getItem(k)}catch{return null}},set(k,v){try{sessionStorage.setItem(k,v)}catch{}}};
+function syncLauncher(){wl.classList.toggle('hide',!widget.hidden||joinInView)}
+function openWidget(){
+  if(!widget.hidden)return;
+  wbody.append(chatBox,resultEl);widget.hidden=false;$('#chatAway').hidden=false;
+  launcher.setAttribute('aria-expanded','true');document.body.classList.add('wopen');hideNudge();syncLauncher();
+  log.scrollTop=log.scrollHeight;
+  const f=widget.querySelector('#chatText:not([hidden]) input')||widget.querySelector('#chatOpts .chip');if(f)f.focus({preventScroll:true});
+}
+function closeWidget(focusLauncher=true){
+  if(widget.hidden)return;
+  chatHome.append(chatBox,resultEl);widget.hidden=true;$('#chatAway').hidden=true;
+  launcher.setAttribute('aria-expanded','false');document.body.classList.remove('wopen');syncLauncher();
+  if(focusLauncher&&!joinInView)launcher.focus({preventScroll:true});
+}
+launcher.addEventListener('click',()=>widget.hidden?openWidget():closeWidget());
+$('#wclose').addEventListener('click',()=>closeWidget());
+$('#bringBack').addEventListener('click',()=>{closeWidget(false);$('#join').scrollIntoView({behavior:reduce?'auto':'smooth'})});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWidget()});
+$$('a[href="#join"]').forEach(a=>a.addEventListener('click',()=>closeWidget(false)));
+new IntersectionObserver(es=>{joinInView=es[0].isIntersecting;syncLauncher()},{threshold:.25}).observe($('#join'));
+function hideNudge(){nudge.hidden=true}
+$('#nudgeX').addEventListener('click',e=>{e.stopPropagation();hideNudge()});
+nudge.addEventListener('click',openWidget);
+setTimeout(()=>{if(!state.memberNo&&widget.hidden&&!joinInView&&!sess.get('koottam_nudged')){nudge.hidden=false;sess.set('koottam_nudged','1')}},15000);
 function initGuide(){
   if(state.profile&&state.group){prof=state.profile;stepI=STEPS.length;$('#chatProg').style.width='100%';
     say(`Welcome back, ${prof.name.split(' ')[0]}! You're in ${state.group.n}. Hit Restart to change your group.`);showResult();}
