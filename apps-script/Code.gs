@@ -3,6 +3,7 @@
  *
  * GET               -> public totals {members, today, byDomain, jobs, stories}  (no personal data)
  * GET ?ref=<no>     -> {referrals} for a member's invite link
+ * GET ?admin=<key>  -> full dashboard numbers for admin.html (set ADMIN_KEY in Script properties)
  * POST (no type)    -> new member  {name, phone, education, domain, status, group, ref}
  * POST type=job     -> job post / referral / industry lead
  * POST type=story   -> success story
@@ -20,7 +21,7 @@
  */
 const TZ = 'Asia/Kolkata';
 const SHEETS = {
-  Members: ['Member #', 'Joined at', 'Name', 'Phone', 'Education', 'Domain', 'Status', 'Group', 'Referred by', 'WhatsApp welcome'],
+  Members: ['Member #', 'Joined at', 'Name', 'Phone', 'Education', 'Domain', 'Status', 'Group', 'Referred by', 'WhatsApp welcome', 'Age group', 'District'],
   Jobs:    ['Posted at', 'Name', 'Contact', 'Company', 'Role', 'Domain', 'Location', 'Type', 'Link', 'Details', 'Wants to be lead', 'Show on site'],
   Stories: ['Sent at', 'Name', 'Contact', 'Domain', 'Role', 'Company', 'Story', 'Consent', 'Show on site'],
   Scams:   ['Reported at', 'Agent / company', 'Their phone or website', 'What happened', 'Amount asked', 'Reporter contact']
@@ -55,13 +56,14 @@ const https_ = v => /^https:\/\//.test(String(v)) ? String(v) : '';
 function stats_() {
   const rows = rows_(sheet_('Members'));
   const today = Utilities.formatDate(new Date(), TZ, 'yyyy-MM-dd');
-  const byDomain = {};
+  const byDomain = {}, byDistrict = {};
   let t = 0;
   rows.forEach(r => {
     byDomain[r[5]] = (byDomain[r[5]] || 0) + 1;
+    if (r[11]) byDistrict[r[11]] = (byDistrict[r[11]] || 0) + 1;
     if (r[1] && Utilities.formatDate(new Date(r[1]), TZ, 'yyyy-MM-dd') === today) t++;
   });
-  return { members: rows.length, today: t, byDomain: byDomain };
+  return { members: rows.length, today: t, byDomain: byDomain, byDistrict: byDistrict };
 }
 
 function publicJobs_() {
@@ -102,7 +104,34 @@ function sendWelcome_(phone, name, memberNo, group) {
   }
 }
 
+// Everything the admin dashboard shows: counts only, never names or phone numbers.
+function admin_() {
+  const m = rows_(sheet_('Members'));
+  const day = d => Utilities.formatDate(new Date(d), TZ, 'yyyy-MM-dd');
+  const count = i => { const o = {}; m.forEach(r => { const k = String(r[i] == null ? '' : r[i]).trim() || 'Not given'; o[k] = (o[k] || 0) + 1; }); return o; };
+  const byDay = {};
+  m.forEach(r => { if (r[1]) { const k = day(r[1]); byDay[k] = (byDay[k] || 0) + 1; } });
+  const refs = {};
+  m.forEach(r => { if (r[8]) refs[r[8]] = (refs[r[8]] || 0) + 1; });
+  const jobs = rows_(sheet_('Jobs')), stories = rows_(sheet_('Stories'));
+  return {
+    members: m.length, byDay: byDay,
+    byDomain: count(5), byEducation: count(4), byStatus: count(6), byAge: count(10), byDistrict: count(11), byWelcome: count(9),
+    topInviters: Object.keys(refs).map(k => ({ memberNo: k, joined: refs[k] })).sort((a, b) => b.joined - a.joined).slice(0, 10),
+    jobs: { total: jobs.length, live: jobs.filter(r => yes_(r[11])).length, leads: jobs.filter(r => yes_(r[10])).length },
+    stories: { total: stories.length, live: stories.filter(r => yes_(r[8])).length },
+    scams: rows_(sheet_('Scams')).length,
+    timeZone: TZ, at: new Date().toISOString()
+  };
+}
+
 function doGet(e) {
+  if (e && e.parameter && e.parameter.admin !== undefined) {
+    const key = PropertiesService.getScriptProperties().getProperty('ADMIN_KEY');
+    if (!key) return json_({ ok: false, error: 'no_key' });
+    if (String(e.parameter.admin) !== key) { Utilities.sleep(800); return json_({ ok: false, error: 'wrong_key' }); }
+    return json_(Object.assign({ ok: true }, admin_()));
+  }
   const ref = e && e.parameter && String(e.parameter.ref || '');
   if (/^\d{1,7}$/.test(ref)) {
     const n = rows_(sheet_('Members')).filter(r => String(r[8]) === ref).length;
@@ -155,7 +184,7 @@ function doPost(e) {
       memberNo, now, name, "'" + phone,
       clean_(d.education, 40), clean_(d.domain, 60),
       d.status === 'employed' ? 'employed' : 'unemployed',
-      clean_(d.group, 100), ref, ''
+      clean_(d.group, 100), ref, '', clean_(d.age, 10), clean_(d.district, 40)
     ]);
     const row = sh.getLastRow();
     sh.getRange(row, 10).setValue(sendWelcome_(phone, name, memberNo, String(d.groupName || '').slice(0, 80)));

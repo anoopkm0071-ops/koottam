@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Koottam Dashboard</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="description" content="Private Koottam admin dashboard.">
+<meta name="theme-color" content="#e8202a">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="site.css">
+<style>
+/* admin dashboard: same tokens as the site; one hue (red) for every magnitude bar */
+.dash{padding:40px 0 80px}
+.dash-head{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap;margin-bottom:26px}
+.dash-head h1{font-size:clamp(2.4rem,7vw,4rem)}
+.dash-meta{display:flex;gap:10px;align-items:center;flex-wrap:wrap;font-weight:600;color:var(--mute);font-size:.9rem}
+.login{max-width:440px;margin:60px auto;padding:28px}
+.login h1{font-size:2.6rem;margin-bottom:10px}
+.login label{display:grid;gap:6px;font-weight:800;font-size:.78rem;text-transform:uppercase;letter-spacing:.08em;margin:18px 0 14px}
+.login input{border:2.5px solid var(--line);background:var(--paper);color:var(--ink);font:600 1rem var(--body);padding:12px 14px}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:16px;margin-bottom:28px}
+.kpi{padding:18px 18px 16px}
+.kpi b{display:block;font:400 2.8rem/1 var(--head);font-variant-numeric:tabular-nums}
+.kpi span{font-weight:800;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--mute)}
+.kpi small{display:block;margin-top:6px;font-weight:600;color:var(--mute)}
+.kpi.hot{background:var(--red);color:#fff}.kpi.hot span,.kpi.hot small{color:#fff}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.grid2>*{min-width:0}
+@media(max-width:860px){.grid2{grid-template-columns:1fr}}
+.panel{padding:20px 22px;margin-bottom:22px}
+.panel h2{font-size:1.7rem;margin-bottom:4px}
+.panel .note{color:var(--mute);font-weight:600;font-size:.85rem;margin-bottom:14px}
+.cols{position:relative;height:190px;display:flex;align-items:flex-end;gap:2px;border-bottom:2px solid var(--line);margin-top:22px}
+.cols i{flex:1;height:100%;display:flex;align-items:flex-end;cursor:pointer;outline:none}
+.cols i b{display:block;width:100%;background:var(--red)}
+.cols i:hover b,.cols i:focus-visible b{outline:2px solid var(--ink);outline-offset:1px}
+.cols i:hover,.cols i:focus-visible{background:color-mix(in srgb,var(--ink) 6%,transparent)}
+.cols .gl{position:absolute;left:0;right:0;border-top:1px dashed var(--mute);opacity:.45;pointer-events:none}
+.cols .gl span{position:absolute;right:0;top:-18px;font-size:.72rem;font-weight:700;color:var(--mute)}
+.xax{display:flex;justify-content:space-between;font-size:.72rem;font-weight:700;color:var(--mute);margin-top:6px}
+.tip{position:fixed;z-index:80;pointer-events:none;background:var(--ink);color:var(--paper);font:700 .8rem var(--body);padding:6px 9px;transform:translate(-50%,-120%);white-space:nowrap}
+.hb{display:grid;gap:8px}
+.hrow{display:grid;grid-template-columns:minmax(0,9.5rem) 1fr auto;gap:10px;align-items:center;font-weight:700;font-size:.9rem}
+.hrow .l{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.hrow .t{height:14px;background:var(--paper);border:2px solid var(--line)}
+.hrow .t i{display:block;height:100%;background:var(--red)}
+.hrow .v{font-variant-numeric:tabular-nums;text-align:right;min-width:5.5rem}
+.hrow .v small{color:var(--mute);font-weight:600;margin-left:4px}
+.empty{color:var(--mute);font-weight:600}
+@media(max-width:600px){.hrow{grid-template-columns:1fr auto;row-gap:5px}.hrow .l{grid-column:1;grid-row:1}.hrow .v{grid-column:2;grid-row:1}.hrow .t{grid-column:1/-1;grid-row:2}.cols{height:150px}}
+table.inv{width:100%;border-collapse:collapse;font-weight:700}
+table.inv th,table.inv td{text-align:left;padding:8px 6px;border-bottom:2px solid var(--line)}
+table.inv th{font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;color:var(--mute)}
+table.inv td:last-child,table.inv th:last-child{text-align:right;font-variant-numeric:tabular-nums}
+.err{color:var(--red);font-weight:800;min-height:1.2em}
+</style>
+</head>
+<body>
+
+<nav><div class="wrap">
+  <a class="logo" href="./">KOOTTAM<span>✦</span></a>
+  <div class="navr"><a class="btn ghost" href="./">Back to site</a></div>
+</div></nav>
+
+<main class="wrap">
+  <form class="box login" id="login" novalidate>
+    <span class="kicker">Admin only</span>
+    <h1>Dashboard</h1>
+    <p style="color:var(--mute);font-weight:600">Enter the admin password you set as <code>ADMIN_KEY</code> in your sheet's script properties.</p>
+    <label>Admin password<input id="key" type="password" autocomplete="current-password" required></label>
+    <label class="chk" style="display:flex;gap:10px;align-items:center;text-transform:none;letter-spacing:0;font-size:.92rem;margin:0 0 16px"><input type="checkbox" id="remember" checked style="width:20px;height:20px;accent-color:var(--red)"> Remember on this device</label>
+    <button class="btn" type="submit">Open dashboard →</button>
+    <p class="err" id="lerr" role="alert"></p>
+  </form>
+
+  <div class="dash" id="dash" hidden>
+    <div class="dash-head">
+      <div><span class="kicker">Admin dashboard</span><h1>Koottam, live</h1></div>
+      <div class="dash-meta"><span id="updated"></span><button class="sh" type="button" id="refresh">↻ Refresh</button><button class="sh" type="button" id="logout">Log out</button></div>
+    </div>
+    <div class="kpis" id="kpis"></div>
+    <div class="box panel">
+      <h2>Joins per day</h2><p class="note">Last 30 days, India time. Hover or tap a bar for the date.</p>
+      <div class="cols" id="days"></div><div class="xax" id="dayAxis"></div>
+    </div>
+    <div class="grid2">
+      <div class="box panel"><h2>Domain</h2><p class="note">What people want a job in</p><div class="hb" id="pDomain"></div></div>
+      <div class="box panel"><h2>District</h2><p class="note">Where members are from</p><div class="hb" id="pDistrict"></div></div>
+      <div class="box panel"><h2>Education</h2><p class="note">Highest education</p><div class="hb" id="pEdu"></div></div>
+      <div class="box panel"><h2>Age group</h2><p class="note">Youngest to oldest</p><div class="hb" id="pAge"></div></div>
+      <div class="box panel"><h2>Employment</h2><p class="note">Right now</p><div class="hb" id="pStatus"></div></div>
+      <div class="box panel"><h2>Top inviters</h2><p class="note">Members whose invite links brought people in. Look up the member number in your sheet.</p><div id="pInv"></div></div>
+    </div>
+  </div>
+</main>
+<div class="tip" id="tip" hidden></div>
+
+<script src="config.js"></script>
+<script src="common.js"></script>
+<script>
+(()=>{
+const {$,$$,store,fmt,esc,CONFIG}=window.K;
+const DOMAIN_NAMES={it:'💻 IT & Software',mkt:'📣 Marketing',sales:'🤝 Sales',founder:"🚀 Founder's Office",health:'🩺 Nursing & Healthcare',bank:'🏦 Banking & Finance',gulf:'✈️ Gulf & Abroad',edu:'📚 Teaching',eng:'🏗️ Engineering & Construction',hosp:'🏨 Hospitality & Tourism',govt:'🏛️ PSC & Government',creative:'🎨 Design & Creative'};
+const EDU_NAMES={'10':'SSLC / 10th','12':'Plus Two',diploma:'Diploma / ITI',degree:'Degree',pg:'Post-graduate',prof:'Professional'};
+const EDU_ORDER=['10','12','diploma','degree','pg','prof'];
+const AGE_ORDER=['18–21','22–25','26–30','31–40','40+'];
+const STATUS_NAMES={unemployed:'🔎 Unemployed',employed:'💼 Employed'};
+let key=store.get('koottam_admin','')||'',timer=null;
+
+function bars(el,obj,{names={},order=null,limit=0}={}){
+  let rows=Object.entries(obj||{});
+  const total=rows.reduce((a,[,v])=>a+v,0);
+  if(!total){el.innerHTML='<p class="empty">No data yet.</p>';return}
+  const ng=rows.filter(([k])=>k==='Not given');rows=rows.filter(([k])=>k!=='Not given');
+  rows=order?order.filter(k=>obj[k]).map(k=>[k,obj[k]]).concat(rows.filter(([k])=>!order.includes(k))):rows.sort((a,b)=>b[1]-a[1]);
+  let rest=0;if(limit&&rows.length>limit){rest=rows.slice(limit).reduce((a,[,v])=>a+v,0);rows=rows.slice(0,limit);if(rest)rows.push(['Other',rest])}
+  rows=rows.concat(ng);
+  const max=Math.max(...rows.map(([,v])=>v));
+  el.innerHTML=rows.map(([k,v])=>{const label=names[k]||k,pct=Math.round(v/total*100);return `<div class="hrow" title="${esc(label)}: ${v} (${pct}%)"><span class="l">${esc(label)}</span><span class="t"><i style="width:${v/max*100}%${k==='Not given'?';background:var(--mute)':''}"></i></span><span class="v">${fmt(v)}<small>${pct}%</small></span></div>`}).join('');
+}
+
+const istDay=d=>d.toLocaleDateString('en-CA',{timeZone:'Asia/Kolkata'});
+function days(byDay){
+  const out=[],now=Date.now();
+  for(let i=29;i>=0;i--){const d=new Date(now-i*864e5);out.push([istDay(d),byDay[istDay(d)]||0,d])}
+  const max=Math.max(1,...out.map(x=>x[1])),step=max<=4?1:Math.ceil(max/4/5)*5||1,top=Math.ceil(max/step)*step;
+  const grid=[];for(let v=step;v<=top;v+=step)grid.push(`<div class="gl" style="bottom:${v/top*100}%"><span>${v}</span></div>`);
+  const fmtD=d=>d.toLocaleDateString('en-IN',{day:'numeric',month:'short',timeZone:'Asia/Kolkata'});
+  $('#days').innerHTML=grid.join('')+out.map(([k,v,d])=>`<i tabindex="0" data-t="${fmtD(d)}: ${v} joined"><b style="height:${v/top*100}%"></b></i>`).join('');
+  $('#dayAxis').innerHTML=`<span>${fmtD(out[0][2])}</span><span>${fmtD(out[15][2])}</span><span>Today</span>`;
+  return out;
+}
+const tip=$('#tip');
+function showTip(e){const t=e.target.closest('[data-t]');if(!t){tip.hidden=true;return}const r=(t.firstChild&&t.firstChild.offsetHeight?t.firstChild:t).getBoundingClientRect();tip.textContent=t.dataset.t;tip.hidden=false;const w=tip.offsetWidth;tip.style.left=Math.min(Math.max(r.left+r.width/2,w/2+8),innerWidth-w/2-8)+'px';tip.style.top=(r.top+r.height-Math.min(r.height,8))+'px';tip.hidden=false}
+$('#days').addEventListener('mouseover',showTip);$('#days').addEventListener('focusin',showTip);$('#days').addEventListener('click',showTip);
+$('#days').addEventListener('mouseleave',()=>tip.hidden=true);$('#days').addEventListener('focusout',()=>tip.hidden=true);
+
+function render(d){
+  const series=days(d.byDay||{}),today=series.at(-1)[1],last7=series.slice(-7).reduce((a,x)=>a+x[1],0),prev7=series.slice(-14,-7).reduce((a,x)=>a+x[1],0);
+  const st=d.byStatus||{},seekers=st.unemployed||0,pend=(d.jobs.total-d.jobs.live)+(d.stories.total-d.stories.live);
+  const k=(v,l,s,hot)=>`<div class="box kpi${hot?' hot':''}"><span>${l}</span><b>${v}</b>${s?`<small>${s}</small>`:''}</div>`;
+  $('#kpis').innerHTML=[
+    k(fmt(d.members),'Members',`${fmt(today)} joined today`,true),
+    k(fmt(last7),'Last 7 days',prev7?`${last7>=prev7?'▲':'▼'} vs ${fmt(prev7)} the week before`:'First week'),
+    k(d.members?Math.round(seekers/d.members*100)+'%':'–','Job seekers',`${fmt(seekers)} unemployed`),
+    k(fmt(pend),'Waiting for you',`${d.jobs.total-d.jobs.live} job${d.jobs.total-d.jobs.live===1?'':'s'}, ${d.stories.total-d.stories.live} ${d.stories.total-d.stories.live===1?'story':'stories'} to approve`),
+    k(fmt(d.jobs.leads),'Industry leads','Ticked the lead box on a job post'),
+    k(fmt(d.scams),'Scam reports','Check the Scams tab')
+  ].join('');
+  bars($('#pDomain'),d.byDomain,{names:DOMAIN_NAMES,limit:12});
+  bars($('#pDistrict'),d.byDistrict);
+  bars($('#pEdu'),d.byEducation,{names:EDU_NAMES,order:EDU_ORDER});
+  bars($('#pAge'),d.byAge,{order:AGE_ORDER});
+  bars($('#pStatus'),st,{names:STATUS_NAMES,order:['unemployed','employed']});
+  const inv=d.topInviters||[];
+  $('#pInv').innerHTML=inv.length?`<table class="inv"><thead><tr><th>Member #</th><th>People brought in</th></tr></thead><tbody>${inv.map(x=>`<tr><td>#${esc(x.memberNo)}</td><td>${fmt(x.joined)}</td></tr>`).join('')}</tbody></table>`:'<p class="empty">No invite-link joins yet.</p>';
+  $('#updated').textContent='Updated '+new Date().toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'});
+}
+
+async function load(showErr){
+  if(!CONFIG.API_URL){$('#lerr').textContent='The sheet is not connected yet: set API_URL in config.js.';return false}
+  try{
+    const d=await (await fetch(CONFIG.API_URL+'?admin='+encodeURIComponent(key))).json();
+    if(!d.ok){
+      if(showErr)$('#lerr').textContent=d.error==='no_key'?'No ADMIN_KEY set yet. Add it in Apps Script → Project Settings → Script properties, then deploy a new version.':d.error==='wrong_key'?'That password is wrong.':'The dashboard could not load. Check that the latest Code.gs is deployed.';
+      return false;
+    }
+    $('#login').hidden=true;$('#dash').hidden=false;render(d);return true;
+  }catch{if(showErr)$('#lerr').textContent='Could not reach your sheet. Check your connection and try again.';return false}
+}
+$('#login').addEventListener('submit',async e=>{
+  e.preventDefault();$('#lerr').textContent='';key=$('#key').value.trim();if(!key)return;
+  const btn=e.submitter||$('#login .btn');btn.disabled=true;btn.textContent='Opening…';
+  if(await load(true)){if($('#remember').checked)store.set('koottam_admin',key);start()}
+  btn.disabled=false;btn.textContent='Open dashboard →';
+});
+function start(){clearInterval(timer);timer=setInterval(()=>load(false),60000)}
+$('#refresh').addEventListener('click',()=>load(true));
+$('#logout').addEventListener('click',()=>{store.set('koottam_admin','');key='';clearInterval(timer);$('#dash').hidden=true;$('#login').hidden=false;$('#key').value=''});
+if(key)load(false).then(ok=>ok&&start());
+})();
+</script>
+</body>
+</html>

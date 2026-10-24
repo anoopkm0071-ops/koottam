@@ -6,6 +6,7 @@ A movement site for Kerala job seekers. People join through a 5-question guide (
 - `vazha.html` – the vazha challenge, a page made for sharing
 - `hire.html` – post a job, referral or become an industry lead
 - `scam.html` – scam red flags and the report form
+- `admin.html` – private dashboard (password protected, not linked from the site)
 - `config.js` – all settings (sheet URL, WhatsApp links, founder, analytics)
 - `site.css`, `common.js` – shared styles and code for every page
 - `apps-script/Code.gs` – Google Sheet backend for sign-ups and live counts

@@ -35,6 +35,17 @@ The website can only read totals, approved jobs and approved stories. It never s
 
 If you edit `Code.gs` later, use **Deploy → Manage deployments → Edit → Version: New version**, so the URL stays the same.
 
+## 2a. Your private dashboard (admin.html)
+
+`https://<your-github-username>.github.io/koottam/admin.html` shows joins per day, domain, district, education, age group, employment, top inviters, and posts waiting for approval. It shows counts only, never names or phone numbers, and it is not linked from the site.
+
+1. In the sheet, open **Extensions → Apps Script** and paste the latest `apps-script/Code.gs` over the old code. Click **Save**.
+2. Go to **Project Settings (⚙️) → Script properties → Add script property**: name `ADMIN_KEY`, value a long password only you know (for example four random words). Click **Save script properties**.
+3. Go to **Deploy → Manage deployments → ✏️ Edit**, set **Version: New version**, and click **Deploy**. The web app URL stays the same.
+4. Open `admin.html`, enter the password and tick **Remember on this device**.
+
+To change the password, edit `ADMIN_KEY`. The new value works straight away, with no redeploy needed.
+
 ## 2b. Send every new member a WhatsApp thank-you (optional)
 
 WhatsApp only lets a business message someone first through the **WhatsApp Business Platform** (Meta Cloud API), using a message template Meta has approved. Meta charges a small fee per template message.

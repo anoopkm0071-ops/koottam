@@ -52,13 +52,15 @@
   <div class="joinwrap">
     <div>
       <span class="kicker">Join in 30 seconds</span>
-      <h2>Five questions.<br><span class="red">One group.</span><br>Your job hunt, together.</h2>
+      <h2>Seven quick taps.<br><span class="red">One group.</span><br>Your job hunt, together.</h2>
       <ol class="steps">
         <li><b>1</b> Your name</li>
         <li><b>2</b> Your WhatsApp number</li>
         <li><b>3</b> Your education</li>
-        <li><b>4</b> The domain you want a job in</li>
-        <li><b>5</b> Employed or unemployed</li>
+        <li><b>4</b> Your age group</li>
+        <li><b>5</b> Your district</li>
+        <li><b>6</b> The domain you want a job in</li>
+        <li><b>7</b> Employed or unemployed</li>
       </ol>
       <p style="margin-top:22px;color:var(--mute);font-weight:600">We add you to the right group and send your invite on WhatsApp. Then you get your member card.</p>
       <p style="margin-top:10px;color:var(--mute);font-size:.9rem">🔒 Your number is only used for your group and job alerts. We never sell it. <a href="privacy.html">Privacy policy</a></p>
@@ -280,10 +282,11 @@ Certificate (Issuer, YYYY) · English, Malayalam, Hindi</pre>
 
 <section id="leaders"><div class="wrap rv">
   <span class="kicker">Leaderboard</span>
-  <h2>Which domain is<br><span class="red">leading the mission?</span></h2>
-  <p class="sub">Live member count per domain. Bring your friends and push your domain to the top.</p>
+  <h2>Who's<br><span class="red">leading the mission?</span></h2>
+  <p class="sub">Live member counts. Bring your friends and push your domain and your district to the top.</p>
+  <div class="tabs" role="tablist" id="boardTabs"><button type="button" role="tab" aria-selected="true" data-board="dom">By domain</button><button type="button" role="tab" aria-selected="false" data-board="dist">By district</button></div>
   <div class="box board" id="board"></div>
-  <button class="again" type="button" id="boardMore" hidden>Show all 12 domains ↓</button>
+  <button class="again" type="button" id="boardMore" hidden>Show all ↓</button>
 </div></section>
 
 <section class="pledge" id="pledge"><div class="wrap rv">
@@ -351,6 +354,8 @@ const DOMAINS=[
 const SLOGANS=['A job for every Mallu','Never pay for a job','Join free. Stay free.','No Mallu left jobless','Openings · Referrals · Prep','Freshers to Gulf returnees','Not a vazha anymore'];
 const KW={mkt:/market|seo|brand|social|advert|growth/i,sales:/sales|business dev/i,it:/software|developer|programm|tech|data|\bai\b|code|\bqa\b|devops/i,founder:/founder|startup|strategy|chief|operations/i,bank:/bank|financ|account|tax|invest/i,health:/nurs|health|doctor|pharm|\blab\b/i,gulf:/gulf|abroad|dubai|saudi|qatar/i,edu:/teach|tutor|educat|school/i,hosp:/hotel|hospitality|tour|chef|travel/i,eng:/civil|construct|mechanic|electric/i,govt:/psc|govern|upsc|ssc|railway/i,creative:/design|video|writer|creative/i};
 const EDU=[{v:'10',l:'SSLC / 10th'},{v:'12',l:'Plus Two'},{v:'diploma',l:'Diploma / ITI'},{v:'degree',l:'Degree'},{v:'pg',l:'Post-graduate'},{v:'prof',l:'Professional (B.Tech, CA, MBBS…)'}];
+const AGES=['18–21','22–25','26–30','31–40','40+'];
+const DISTRICTS=['Thiruvananthapuram','Kollam','Pathanamthitta','Alappuzha','Kottayam','Idukki','Ernakulam','Thrissur','Palakkad','Malappuram','Kozhikode','Wayanad','Kannur','Kasaragod','Outside Kerala / Abroad'];
 const STATUS=[{v:'unemployed',l:'🔎 Unemployed, looking for a job',g:'Job seekers'},{v:'employed',l:'💼 Employed, looking for a change',g:'Working professionals'}];
 
 K.initReveal();
@@ -359,7 +364,7 @@ K.initReveal();
 let state=store.get('koottam_live',{});
 const qref=new URLSearchParams(location.search).get('ref');
 if(/^\d{1,7}$/.test(qref||'')&&!state.memberNo)store.set('koottam_ref',qref); // remember who invited this visitor
-const n={members:0,today:0,doms:{}};
+const n={members:0,today:0,doms:{},dists:{}};
 const MILESTONES=[100,500,1000,5000,10000,25000,50000,100000,250000,500000,1000000];
 function tween(el,to,ms=1200){
   if(reduce){el.textContent=fmt(to);el.dataset.v=to;return}
@@ -375,7 +380,7 @@ function renderNums(){
 }
 function applyStats(j){
   if(!j||typeof j.members!=='number')return;
-  n.members=j.members;n.today=j.today|0;n.doms=j.byDomain||{};
+  n.members=j.members;n.today=j.today|0;n.doms=j.byDomain||{};n.dists=j.byDistrict||{};
   renderNums();renderDoms();renderBoard();
   if(Array.isArray(j.jobs))renderJobs(j.jobs);
   if(Array.isArray(j.stories))renderStories(j.stories);
@@ -395,13 +400,14 @@ function renderDoms(){
 }
 
 /* ---------- domain leaderboard ---------- */
-let boardAll=false;
+let boardAll=false,boardBy='dom';
 $('#boardMore').addEventListener('click',()=>{boardAll=true;renderBoard()});
+$$('#boardTabs [data-board]').forEach(b=>b.addEventListener('click',()=>{boardBy=b.dataset.board;boardAll=false;$$('#boardTabs [data-board]').forEach(x=>x.setAttribute('aria-selected',x===b));renderBoard()}));
 function renderBoard(){
-  const all=DOMAINS.map(d=>[d,n.doms[d.id]||0]).sort((a,b)=>b[1]-a[1]),max=Math.max(all[0][1],1),rows=boardAll?all:all.slice(0,6);
-  $('#boardMore').hidden=boardAll;
-  $('#board').innerHTML=(n.members?'':'<p class="empty">The race starts with the first sign-up. Join and put your domain on the board.</p>')+
-    rows.map(([d,c],i)=>`<div class="drow"><span class="rk">${i===0&&c?'👑':i+1}</span><span>${d.e} ${d.n}</span><div class="bar"><i style="width:${c/max*100}%"></i></div><b>${fmt(c)}</b></div>`).join('');
+  const all=(boardBy==='dom'?DOMAINS.map(d=>[d.e+' '+d.n,n.doms[d.id]||0]):DISTRICTS.map(d=>['📍 '+d,n.dists[d]||0])).sort((a,b)=>b[1]-a[1]),max=Math.max(all[0][1],1),rows=boardAll?all:all.slice(0,6);
+  $('#boardMore').hidden=boardAll;$('#boardMore').textContent=`Show all ${all.length} ↓`;
+  $('#board').innerHTML=(n.members?'':`<p class="empty">The race starts with the first sign-up. Join and put your ${boardBy==='dom'?'domain':'district'} on the board.</p>`)+
+    rows.map(([label,c],i)=>`<div class="drow"><span class="rk">${i===0&&c?'👑':i+1}</span><span>${esc(label)}</span><div class="bar"><i style="width:${c/max*100}%"></i></div><b>${fmt(c)}</b></div>`).join('');
 }
 /* ---------- jobs: live approved posts, else examples ---------- */
 const EXAMPLES=[['it',0],['mkt',0],['health',0],['gulf',0],['founder',0]].map(([id,i])=>{const d=DOMAINS.find(x=>x.id===id);return{d,role:d.roles[i][0],loc:d.roles[i][1]}});
@@ -479,6 +485,8 @@ const STEPS=[
  {key:'phone',type:'text',skip:p=>!!p.phone,ph:'10-digit mobile number',q:p=>`Good to have you, ${p.name.split(' ')[0]}! What's your WhatsApp number? Your group invite goes there.`,
   validate:t=>isPhone(t)?'':"That doesn't look like a 10-digit Indian mobile number. Try again?"},
  {key:'edu',skip:p=>!!p.edu,q:()=>'What is your highest education?',opts:()=>EDU},
+ {key:'age',skip:p=>!!p.age,q:()=>'Which age group are you in?',opts:()=>AGES.map(a=>({v:a,l:a}))},
+ {key:'dist',skip:p=>!!p.dist,q:()=>'Which district are you from?',opts:()=>DISTRICTS.map(d=>({v:d,l:d}))},
  {key:'dom',skip:p=>!!p.dom,q:()=>'Which domain are you looking for a job in?',opts:()=>DOMAINS.map(d=>({v:d.id,l:d.e+' '+d.n})),text:'Something else'},
  {key:'status',q:()=>'Last one. Are you employed or unemployed right now?',opts:()=>STATUS}
 ];
@@ -570,7 +578,7 @@ async function downloadCard(){
   const a=document.createElement('a');a.download=filename;a.href=c.toDataURL('image/png');a.click(); // standalone site
 }
 async function register(){
-  const pl={name:prof.name,phone:prof.phone,education:prof.edu,domain:prof.dom==='other'?prof.domText:prof.dom,status:prof.status,group:state.group.slug,groupName:state.group.n,ref:store.get('koottam_ref','')};
+  const pl={name:prof.name,phone:prof.phone,education:prof.edu,age:prof.age,district:prof.dist,domain:prof.dom==='other'?prof.domText:prof.dom,status:prof.status,group:state.group.slug,groupName:state.group.n,ref:store.get('koottam_ref','')};
   if(!CONFIG.API_URL)return null;
   try{const j=await (await fetch(CONFIG.API_URL,{method:'POST',body:JSON.stringify(pl)})).json();return j&&j.ok?j:null}catch{return null}
 }
@@ -591,7 +599,7 @@ async function finish(){
 }
 function restart(domId){
   gen++;
-  const k=state.profile||prof,id={};['name','phone','edu'].forEach(x=>{if(k[x])id[x]=k[x]}); // keep answers already given
+  const k=state.profile||prof,id={};['name','phone','edu','age','dist'].forEach(x=>{if(k[x])id[x]=k[x]}); // keep answers already given
   prof={...id,...(domId?{dom:domId}:{})};stepI=0;
   log.innerHTML='';optsEl.innerHTML='';tform.hidden=true;$('#result').innerHTML='';runStep();
 }
