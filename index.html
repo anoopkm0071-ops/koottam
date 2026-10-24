@@ -1,0 +1,542 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Koottam Job Mission</title>
+<meta name="description" content="Koottam is a movement on a mission: a job for every Keralite. Join free, get added to your domain group, get openings, referrals and interview prep.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#f5f0e6; --ink:#0d0d0d; --card:#fffdf8; --mute:#5b5750; --line:#0d0d0d;
+  --red:#e8202a; --yel:#ffd60a; --black:#0d0d0d; --white:#f5f0e6;
+  --head:'Anton','Impact','Arial Narrow Bold',sans-serif; --body:'Inter',system-ui,sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--paper:#121110;--ink:#f5f0e6;--card:#1c1a18;--mute:#aaa397;--line:#f5f0e6}}
+:root[data-theme="dark"]{--paper:#121110;--ink:#f5f0e6;--card:#1c1a18;--mute:#aaa397;--line:#f5f0e6}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth}
+body{background:var(--paper);color:var(--ink);font:400 17px/1.55 var(--body);overflow-x:hidden}
+a{color:inherit}
+h1,h2,h3,.big{font-family:var(--head);font-weight:400;text-transform:uppercase;line-height:.92;letter-spacing:.005em}
+h2{font-size:clamp(2.6rem,8vw,5.6rem);margin-bottom:18px}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+@media(max-width:600px){.wrap{padding:0 16px}}
+section{padding:96px 0;border-bottom:3px solid var(--line)}
+.kicker{display:inline-block;font:800 .8rem/1 var(--body);letter-spacing:.16em;text-transform:uppercase;background:var(--ink);color:var(--paper);padding:8px 12px;margin-bottom:22px}
+.sub{font-size:1.15rem;color:var(--mute);max-width:640px;margin-bottom:40px}
+mark{background:var(--yel);color:var(--black);padding:0 .12em;display:inline-block;transform:rotate(-1.5deg)}
+.red{color:var(--red)}
+.btn{display:inline-flex;align-items:center;gap:10px;cursor:pointer;font:400 1.25rem/1 var(--head);text-transform:uppercase;letter-spacing:.03em;
+  padding:16px 28px;background:var(--red);color:#fff;border:3px solid var(--line);box-shadow:6px 6px 0 var(--line);text-decoration:none;transition:transform .12s,box-shadow .12s}
+.btn:hover{transform:translate(-2px,-2px);box-shadow:8px 8px 0 var(--line)}
+.btn:active{transform:translate(4px,4px);box-shadow:2px 2px 0 var(--line)}
+.btn.alt{background:var(--yel);color:var(--black)}
+.btn.ghost{background:var(--card);color:var(--ink)}
+.box{background:var(--card);border:3px solid var(--line);box-shadow:8px 8px 0 var(--line)}
+:focus-visible{outline:4px solid var(--yel);outline-offset:3px}
+
+/* nav */
+nav{position:sticky;top:0;z-index:50;background:var(--paper);border-bottom:3px solid var(--line)}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;height:70px;gap:14px}
+.logo{font:400 1.9rem var(--head);text-decoration:none;letter-spacing:.02em}
+.logo span{color:var(--red)}
+.links{display:flex;gap:24px;font-weight:800;font-size:.85rem;text-transform:uppercase;letter-spacing:.06em}
+.links a{text-decoration:none}.links a:hover{color:var(--red)}
+nav .btn{padding:10px 16px;font-size:1rem;box-shadow:4px 4px 0 var(--line)}
+nav .btn b{background:var(--yel);color:var(--black);padding:2px 8px;font:800 .8rem var(--body)}
+@media(max-width:900px){.links{display:none}}
+@media(max-width:420px){nav .btn b{display:none}}
+
+/* hero */
+.hero{padding:64px 0 80px}
+.hero .wrap{display:grid;grid-template-columns:1.25fr .75fr;gap:48px;align-items:center}
+@media(max-width:940px){.hero .wrap{grid-template-columns:1fr}}
+.stamp{display:inline-block;border:3px solid var(--red);color:var(--red);font:400 1.1rem var(--head);padding:6px 14px;transform:rotate(-3deg);margin-bottom:24px;letter-spacing:.08em}
+.hero h1{font-size:clamp(3.6rem,11.5vw,9.4rem);margin-bottom:26px}
+.hero p{font-size:1.25rem;max-width:560px;margin-bottom:34px;font-weight:600}
+.cta{display:flex;gap:18px;flex-wrap:wrap}
+.counter{background:var(--red);color:#fff;border:3px solid var(--line);box-shadow:12px 12px 0 var(--line);padding:30px 28px;transform:rotate(1.5deg)}
+.counter .live{display:flex;align-items:center;gap:10px;font:800 .8rem var(--body);letter-spacing:.16em;text-transform:uppercase}
+.dot{width:12px;height:12px;border-radius:50%;background:var(--yel);animation:blink 1.2s infinite}
+@keyframes blink{50%{opacity:.25}}
+.counter .num{font:400 clamp(3.4rem,9vw,5.8rem)/1 var(--head);margin:14px 0 4px;font-variant-numeric:tabular-nums}
+.counter .lbl{font:400 1.6rem/1 var(--head);text-transform:uppercase}
+.meter{height:18px;border:3px solid var(--black);background:#fff;margin:22px 0 8px}
+.meter i{display:block;height:100%;background:var(--yel);width:0;transition:width 1.2s}
+.counter small{font-weight:600;font-size:.88rem;opacity:.95}
+.counter .today{margin-top:16px;padding-top:14px;border-top:2px dashed #ffffff88;font-weight:800}
+
+/* marquee */
+.marq{background:var(--black);color:var(--yel);border-bottom:3px solid var(--line);overflow:hidden;white-space:nowrap;padding:16px 0}
+.marq div{display:inline-block;animation:slide 32s linear infinite;font:400 1.7rem var(--head);text-transform:uppercase;letter-spacing:.03em}
+.marq span{margin:0 26px}.marq span:nth-child(even){color:#fff}
+@keyframes slide{to{transform:translateX(-50%)}}
+
+/* stats strip */
+.strip{display:grid;grid-template-columns:repeat(4,1fr);border-bottom:3px solid var(--line)}
+.strip div{padding:28px 24px;border-right:3px solid var(--line)}
+.strip div:last-child{border-right:0}
+.strip b{display:block;font:400 clamp(2.2rem,5vw,3.4rem)/1 var(--head);font-variant-numeric:tabular-nums}
+.strip span{font-weight:800;text-transform:uppercase;font-size:.78rem;letter-spacing:.1em;color:var(--mute)}
+@media(max-width:760px){.strip{grid-template-columns:1fr 1fr}.strip div:nth-child(2){border-right:0}.strip div:nth-child(-n+2){border-bottom:3px solid var(--line)}}
+
+/* enemies */
+.enemies{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+@media(max-width:900px){.enemies{grid-template-columns:1fr}}
+.enemy{padding:30px 26px;position:relative}
+.enemy .n{font:400 5rem/1 var(--head);color:var(--red)}
+.enemy h3{font-size:2.3rem;margin:8px 0 12px}
+.enemy p{color:var(--mute)}
+.enemy .fight{margin-top:18px;padding:14px 16px;background:var(--yel);color:var(--black);border:3px solid var(--line);font-weight:600}
+.enemy .fight b{display:block;font:400 1.1rem var(--head);letter-spacing:.04em;text-transform:uppercase;margin-bottom:4px}
+
+/* pledge */
+.pledge{background:var(--black);color:var(--white)}
+.pledge .kicker{background:var(--yel);color:var(--black)}
+.pledge .sub{color:#c9c3b6}
+.pl{display:grid;grid-template-columns:repeat(2,1fr);gap:0;border:3px solid var(--white)}
+@media(max-width:760px){.pl{grid-template-columns:1fr}}
+.pl>div{padding:28px 26px;border-bottom:3px solid var(--white);display:flex;gap:20px;align-items:flex-start}
+.pl>div:nth-child(odd){border-right:3px solid var(--white)}
+.pl>div:nth-last-child(-n+2){border-bottom:0}
+@media(max-width:760px){.pl>div:nth-child(odd){border-right:0}.pl>div:nth-last-child(2){border-bottom:3px solid var(--white)}}
+.pl i{font:400 2.6rem/1 var(--head);color:var(--yel);font-style:normal;min-width:52px}
+.pl h3{font-size:1.8rem;margin-bottom:6px}
+.pl p{color:#c9c3b6}
+
+/* join / guide */
+.joinwrap{display:grid;grid-template-columns:.9fr 1.1fr;gap:44px;align-items:start}
+@media(max-width:940px){.joinwrap{grid-template-columns:1fr}}
+.steps{list-style:none;padding:0;display:grid;gap:14px;margin-top:10px}
+.steps li{display:flex;gap:14px;align-items:center;font-weight:800;font-size:1.05rem}
+.steps li b{font:400 1.4rem/1 var(--head);background:var(--ink);color:var(--paper);width:42px;height:42px;display:grid;place-items:center;flex:none}
+.chat{overflow:hidden}
+.chat-head{display:flex;gap:12px;align-items:center;padding:14px 18px;border-bottom:3px solid var(--line);background:var(--yel);color:var(--black)}
+.chat-head b{font:400 1.4rem var(--head);text-transform:uppercase;letter-spacing:.03em}
+.chat-head small{display:block;font-weight:600}
+.av2{width:44px;height:44px;background:var(--red);color:#fff;border:3px solid var(--black);display:grid;place-items:center;font:400 1.4rem var(--head);flex:none}
+.reset{margin-left:auto;background:transparent;border:2px solid var(--black);color:var(--black);font:800 .75rem var(--body);text-transform:uppercase;letter-spacing:.08em;padding:7px 10px;cursor:pointer}
+.prog{height:8px;background:var(--paper);border-bottom:3px solid var(--line)}.prog i{display:block;height:100%;width:0;background:var(--red);transition:width .5s}
+.log{height:330px;overflow-y:auto;padding:20px;display:flex;flex-direction:column;gap:12px}
+.msg{max-width:86%;padding:12px 16px;border:2.5px solid var(--line);line-height:1.45;overflow-wrap:anywhere;animation:pop .3s;font-weight:600}
+@keyframes pop{from{opacity:0;transform:translateY(10px)}}
+.msg.bot{background:var(--paper);align-self:flex-start;box-shadow:4px 4px 0 var(--line)}
+.msg.me{background:var(--red);color:#fff;align-self:flex-end;box-shadow:-4px 4px 0 var(--line)}
+.dots span{display:inline-block;width:8px;height:8px;margin:0 2px;background:var(--ink);animation:bounce 1s infinite}
+.dots span:nth-child(2){animation-delay:.15s}.dots span:nth-child(3){animation-delay:.3s}
+@keyframes bounce{40%{transform:translateY(-6px)}}
+.opts{display:flex;flex-wrap:wrap;gap:10px;padding:16px 18px 18px;border-top:3px solid var(--line)}
+.opts:empty{display:none}
+.chip{border:2.5px solid var(--line);background:var(--card);color:var(--ink);padding:10px 14px;cursor:pointer;font:800 .9rem var(--body);box-shadow:3px 3px 0 var(--line);transition:transform .1s,box-shadow .1s,background .1s}
+.chip:hover{background:var(--yel);color:var(--black);transform:translate(-1px,-1px);box-shadow:4px 4px 0 var(--line)}
+#chatText{display:flex;gap:10px;padding:16px 18px 18px;border-top:3px solid var(--line)}
+#chatText[hidden]{display:none}
+#chatText input{flex:1;min-width:0;border:2.5px solid var(--line);background:var(--paper);color:var(--ink);font:600 1rem var(--body);padding:12px 14px}
+#chatText .btn{padding:10px 18px;font-size:1.1rem;box-shadow:4px 4px 0 var(--line)}
+
+/* member card */
+.mcard{margin-top:30px;background:var(--red);color:#fff;border:3px solid var(--line);box-shadow:10px 10px 0 var(--line);padding:26px;position:relative;overflow:hidden;animation:pop .5s}
+.mcard::after{content:"MEMBER";position:absolute;right:-12px;bottom:-24px;font:400 7rem/1 var(--head);color:#ffffff1f;pointer-events:none}
+.mcard .top{display:flex;justify-content:space-between;gap:10px;font:800 .78rem var(--body);letter-spacing:.16em;text-transform:uppercase}
+.mcard .no{font:400 clamp(3rem,9vw,4.6rem)/1 var(--head);margin:16px 0 6px}
+.mcard .nm{font:400 2rem/1 var(--head);text-transform:uppercase;overflow-wrap:anywhere}
+.mcard .grp{display:inline-block;margin-top:14px;background:var(--yel);color:var(--black);border:2.5px solid var(--black);padding:6px 12px;font-weight:800}
+.mcard .inv{margin-top:14px;font-weight:600;position:relative;z-index:1}
+.mcard-act{display:flex;gap:14px;flex-wrap:wrap;margin-top:22px}
+.mcard-act .btn{font-size:1.05rem;padding:12px 18px}
+
+/* domains */
+.doms{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:20px}
+.dom{text-align:left;cursor:pointer;padding:22px 20px;font:inherit;color:var(--ink);display:flex;flex-direction:column;gap:8px;transition:transform .12s,box-shadow .12s,background .12s;box-shadow:6px 6px 0 var(--line)}
+.dom:hover{background:var(--yel);color:var(--black);transform:translate(-2px,-2px);box-shadow:8px 8px 0 var(--line)}
+.dom .e{font-size:2rem}
+.dom h3{font-size:1.7rem}
+.dom small{font-weight:800;text-transform:uppercase;letter-spacing:.08em;font-size:.75rem}
+.dom .go{margin-top:auto;font:400 1rem var(--head);text-transform:uppercase;color:var(--red)}
+
+/* districts */
+.board{padding:10px 0}
+.drow{display:grid;grid-template-columns:44px 250px 1fr 84px;gap:14px;align-items:center;padding:12px 22px;border-bottom:2px solid var(--line);font-weight:800}
+.drow:last-child{border-bottom:0}
+.board .empty{padding:18px 22px;color:var(--mute);font-weight:600}
+.drow .rk{font:400 1.6rem var(--head)}
+.drow:nth-child(1) .rk{color:var(--red)}
+.bar{height:20px;border:2.5px solid var(--line);background:var(--paper)}
+.bar i{display:block;height:100%;background:var(--red);width:0;transition:width 1s}
+.drow:nth-child(-n+3) .bar i{background:var(--yel)}
+.drow b{text-align:right;font-variant-numeric:tabular-nums}
+@media(max-width:640px){.drow{grid-template-columns:34px 1fr 70px;padding:12px 14px}.drow .bar{grid-column:1/-1;grid-row:2}}
+
+/* jobs */
+#feed{display:grid;gap:14px}
+.job{display:grid;grid-template-columns:auto 1fr auto;gap:16px;align-items:center;padding:16px 20px;animation:pop .45s;box-shadow:5px 5px 0 var(--line)}
+.job .e{font-size:1.8rem}
+.job h4{font:400 1.45rem/1.05 var(--head);text-transform:uppercase}
+.job p{color:var(--mute);font-size:.88rem;font-weight:600}
+.tag{display:inline-block;font:800 .7rem var(--body);letter-spacing:.08em;text-transform:uppercase;padding:3px 8px;border:2px solid var(--line);margin-left:8px;vertical-align:middle;background:var(--yel);color:var(--black)}
+.tag.new{background:var(--red);color:#fff}
+@media(max-width:600px){.job{grid-template-columns:auto 1fr}.job .btn{grid-column:1/-1;justify-content:center}}
+
+/* final */
+.final{background:var(--red);color:#fff;text-align:center;padding:110px 0}
+.final h2{font-size:clamp(2.8rem,9vw,7rem);margin-bottom:26px}
+.final .btn{background:var(--yel);color:var(--black);font-size:1.6rem;padding:20px 34px}
+footer{padding:34px 0;font-weight:600;font-size:.9rem}
+footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+footer small{display:block;color:var(--mute);font-weight:400;margin-top:6px}
+canvas#confetti{position:fixed;inset:0;pointer-events:none;z-index:99}
+
+.rv{opacity:0;transform:translateY(30px);transition:opacity .6s,transform .6s}
+.rv.on{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<nav><div class="wrap">
+  <a class="logo" href="#top">KOOTTAM<span>✦</span></a>
+  <div class="links"><a href="#why">The problem</a><a href="#pledge">Our pledge</a><a href="#domains">Groups</a><a href="#leaders">Leaderboard</a><a href="#jobs">What you get</a></div>
+  <a class="btn" href="#join">Join <b data-c="members">0</b></a>
+</div></nav>
+
+<header class="hero" id="top"><div class="wrap">
+  <div>
+    <div class="stamp">✦ A people's movement for jobs</div>
+    <h1>Every Keralite deserves a <mark>job.</mark></h1>
+    <p>Not a promise. A mission. We're putting every job seeker in Kerala in the right group, with real openings, referrals from people inside, and the prep nobody taught us.</p>
+    <div class="cta"><a class="btn" href="#join">Join the mission →</a><a class="btn ghost" href="#why">Why we exist</a></div>
+  </div>
+  <div class="counter" aria-live="polite">
+    <div class="live"><span class="dot"></span> Live count</div>
+    <div class="num" data-c="members">0</div>
+    <div class="lbl">Keralites have joined</div>
+    <div class="meter"><i id="meter"></i></div>
+    <small>Next milestone: <b id="milestone">25,000</b> members · <span id="toGo">0</span> to go</small>
+    <div class="today">🔥 <span data-c="today">0</span> joined today<span id="early"> · Early days: founding members get in first</span></div>
+  </div>
+</div></header>
+
+<div class="marq" aria-hidden="true"><div id="marq"></div></div>
+
+<div class="strip">
+  <div><b data-c="members">0</b><span>Members</span></div>
+  <div><b data-c="today">0</b><span>Joined today</span></div>
+  <div><b>12</b><span>Domain groups</span></div>
+  <div><b>₹0</b><span>Cost to join. Forever.</span></div>
+</div>
+
+<section id="why"><div class="wrap rv">
+  <span class="kicker">The problem</span>
+  <h2>Kerala has talent.<br>What it lacks is <span class="red">access.</span></h2>
+  <p class="sub">We are the most educated state in India, and still our young people wait years for a job. Three enemies keep us out. We're going after all three.</p>
+  <div class="enemies">
+    <div class="box enemy"><div class="n">01</div><h3>Nobody told you</h3><p>Most openings go to referrals or never reach a job site. You can't apply for a job you never heard about.</p>
+      <div class="fight"><b>We fight back with</b>Domain groups and instant alerts. Leads post openings straight to you, including the hidden ones.</div></div>
+    <div class="box enemy"><div class="n">02</div><h3>You can't crack it</h3><p>CV ignored. Interview frozen. Nobody showed you what recruiters look for or how to answer.</p>
+      <div class="fight"><b>We fight back with</b>Mock interviews, CV teardowns and answer guides from people who actually hire.</div></div>
+    <div class="box enemy"><div class="n">03</div><h3>The skill gap</h3><p>College taught one thing. Jobs ask for another. That gap is where years of our lives go missing.</p>
+      <div class="fight"><b>We fight back with</b>Skill roadmaps per domain, study circles and free resources that close the gap fast.</div></div>
+  </div>
+</div></section>
+
+<section class="pledge" id="pledge"><div class="wrap rv">
+  <span class="kicker">Our pledge</span>
+  <h2>Six promises.<br><mark>No exceptions.</mark></h2>
+  <p class="sub">This is what every member gets, and what we'll never compromise on.</p>
+  <div class="pl">
+    <div><i>01</i><div><h3>Every opening, shared</h3><p>If a member hears of a job, the group hears of it. No gatekeeping.</p></div></div>
+    <div><i>02</i><div><h3>Never pay for a job</h3><p>Koottam is free. Anyone asking you for money for a job or visa is a scam, and we'll call it out.</p></div></div>
+    <div><i>03</i><div><h3>Referrals from inside</h3><p>Industry leads in every group open doors that job portals can't.</p></div></div>
+    <div><i>04</i><div><h3>Prep for everyone</h3><p>Mock interviews, CV reviews and English practice, not just for the lucky few.</p></div></div>
+    <div><i>05</i><div><h3>Skills, for free</h3><p>Clear roadmaps per domain so you know exactly what to learn next.</p></div></div>
+    <div><i>06</i><div><h3>Nobody left behind</h3><p>Freshers, career-breakers, Gulf returnees, the employed and the unemployed. All of us.</p></div></div>
+  </div>
+</div></section>
+
+<section id="join"><div class="wrap rv">
+  <div class="joinwrap">
+    <div>
+      <span class="kicker">Join in 30 seconds</span>
+      <h2>Five questions.<br><span class="red">One group.</span><br>Your job hunt, together.</h2>
+      <ol class="steps">
+        <li><b>1</b> Your name</li>
+        <li><b>2</b> Your WhatsApp number</li>
+        <li><b>3</b> Your education</li>
+        <li><b>4</b> The domain you want a job in</li>
+        <li><b>5</b> Employed or unemployed</li>
+      </ol>
+      <p style="margin-top:22px;color:var(--mute);font-weight:600">We add you to the right group and send your invite on WhatsApp. Then you get your member card.</p>
+      <p style="margin-top:10px;color:var(--mute);font-size:.9rem">🔒 Your number is only used to send your group invite. We never sell or share it.</p>
+    </div>
+    <div>
+      <div class="box chat">
+        <div class="chat-head"><span class="av2">K</span><div><b>Koottam Guide</b><small>● Online · replies instantly</small></div><button class="reset" id="chatReset" type="button">↺ Restart</button></div>
+        <div class="prog"><i id="chatProg"></i></div>
+        <div class="log" id="chatLog" aria-live="polite"></div>
+        <div class="opts" id="chatOpts"></div>
+        <form id="chatText" hidden><input id="chatInput" maxlength="60" autocomplete="off" aria-label="Your answer"><button class="btn" type="submit">Send</button></form>
+      </div>
+      <div id="result"></div>
+    </div>
+  </div>
+</div></section>
+
+<section id="domains" style="background:var(--card)"><div class="wrap rv">
+  <span class="kicker">The groups</span>
+  <h2>Find your <mark>people.</mark></h2>
+  <p class="sub">Every domain has a group for job seekers and a group for working professionals. Tap yours to join.</p>
+  <div class="doms" id="doms"></div>
+</div></section>
+
+<section id="leaders"><div class="wrap rv">
+  <span class="kicker">Leaderboard</span>
+  <h2>Which domain is<br><span class="red">leading the mission?</span></h2>
+  <p class="sub">Live member count per domain. Bring your friends and push your domain to the top.</p>
+  <div class="box board" id="board"></div>
+</div></section>
+
+<section id="jobs" style="background:var(--card)"><div class="wrap rv">
+  <span class="kicker">What you get</span>
+  <h2>What lands in<br><mark>your group.</mark></h2>
+  <p class="sub">Examples of the openings, referrals and alerts members share in each group. Join to get the real ones on WhatsApp as they drop.</p>
+  <div id="feed"></div>
+</div></section>
+
+<section class="final"><div class="wrap">
+  <h2>No Keralite<br>left jobless.</h2>
+  <p style="font-size:1.25rem;font-weight:600;margin:-6px auto 34px;max-width:560px">That's the mission. It only works if you're in it. Join, then bring one friend who needs this.</p>
+  <a class="btn" href="#join">I'm in →</a>
+</div></section>
+
+<footer><div class="wrap">
+  <div>© 2026 Koottam · A job for every Keralite.<small>Member counts are live sign-ups. Job cards shown above are examples.</small></div>
+  <div>Never pay anyone for a job.<small>Koottam is free, forever.</small></div>
+</div></footer>
+<canvas id="confetti"></canvas>
+
+<script>
+(()=>{
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+const store={get(k,d){try{return JSON.parse(localStorage.getItem(k))??d}catch{return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch{}}};
+const fmt=n=>n.toLocaleString('en-IN');
+const esc=t=>String(t).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const wait=ms=>new Promise(r=>setTimeout(r,reduce?0:ms));
+
+/* ---------- data ---------- */
+const DOMAINS=[
+ {id:'it',n:'IT & Software',e:'💻',roles:[['Junior Web Developer','Kochi'],['QA Trainee','Thiruvananthapuram'],['Support Engineer','Kozhikode']]},
+ {id:'mkt',n:'Marketing',e:'📣',roles:[['Performance Marketing Exec','Kochi'],['SEO Executive','Remote'],['Social Media Manager','Kozhikode']]},
+ {id:'sales',n:'Sales',e:'🤝',roles:[['Inside Sales Rep','Remote'],['Field Sales Officer','Kollam'],['B2B Sales Executive','Kochi']]},
+ {id:'founder',n:"Founder's Office",e:'🚀',roles:[["Founder's Office Associate",'Kochi'],['Business Analyst','Remote'],['Strategy & Ops Associate','Thiruvananthapuram']]},
+ {id:'health',n:'Nursing & Healthcare',e:'🩺',roles:[['Staff Nurse (ICU)','Ernakulam'],['Lab Technician','Kollam'],['Pharmacist','Thrissur']]},
+ {id:'bank',n:'Banking & Finance',e:'🏦',roles:[['Junior Accountant','Kochi'],['Relationship Executive','Thrissur'],['Loan Officer Trainee','Kottayam']]},
+ {id:'gulf',n:'Gulf & Abroad',e:'✈️',roles:[['Site Supervisor','Dubai'],['Electrician','Doha'],['Hotel Steward','Riyadh']]},
+ {id:'edu',n:'Teaching',e:'📚',roles:[['HS Maths Teacher','Malappuram'],['Online Tutor','Remote'],['Primary Teacher','Kannur']]},
+ {id:'eng',n:'Engineering & Construction',e:'🏗️',roles:[['Site Engineer','Kochi'],['Draftsman','Thrissur'],['QS Trainee','Dubai']]},
+ {id:'hosp',n:'Hospitality & Tourism',e:'🏨',roles:[['Front Desk Associate','Kovalam'],['Commis Chef','Munnar'],['Tour Coordinator','Alappuzha']]},
+ {id:'govt',n:'PSC & Government',e:'🏛️',roles:[['LDC notification alert','Statewide'],['Police Constable alert','Statewide'],['University Assistant alert','Statewide']]},
+ {id:'creative',n:'Design & Creative',e:'🎨',roles:[['UI Designer','Kochi'],['Video Editor','Remote'],['Content Writer','Kozhikode']]}
+];
+const SLOGANS=['A job for every Keralite','Never pay for a job','Join free. Stay free.','No Keralite left jobless','Openings · Referrals · Prep','Freshers to Gulf returnees'];
+const KW={mkt:/market|seo|brand|social|advert|growth/i,sales:/sales|business dev/i,it:/software|developer|programm|tech|data|\bai\b|code|\bqa\b|devops/i,founder:/founder|startup|strategy|chief|operations/i,bank:/bank|financ|account|tax|invest/i,health:/nurs|health|doctor|pharm|\blab\b/i,gulf:/gulf|abroad|dubai|saudi|qatar/i,edu:/teach|tutor|educat|school/i,hosp:/hotel|hospitality|tour|chef|travel/i,eng:/civil|construct|mechanic|electric/i,govt:/psc|govern|upsc|ssc|railway/i,creative:/design|video|writer|creative/i};
+const EDU=[{v:'10',l:'SSLC / 10th'},{v:'12',l:'Plus Two'},{v:'diploma',l:'Diploma / ITI'},{v:'degree',l:'Degree'},{v:'pg',l:'Post-graduate'},{v:'prof',l:'Professional (B.Tech, CA, MBBS…)'}];
+const STATUS=[{v:'unemployed',l:'🔎 Unemployed, looking for a job',g:'Job seekers'},{v:'employed',l:'💼 Employed, looking for a change',g:'Working professionals'}];
+
+/* ---------- reveal ---------- */
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('on');io.unobserve(e.target)}}),{threshold:.08});
+$$('.rv').forEach(el=>io.observe(el));
+
+/* ---------- live numbers (real, from the sign-up sheet) ---------- */
+let state=store.get('koottam_live',{});
+const n={members:0,today:0,doms:{}};
+const MILESTONES=[100,500,1000,5000,10000,25000,50000,100000,250000,500000,1000000];
+function tween(el,to,ms=1200){
+  if(reduce){el.textContent=fmt(to);el.dataset.v=to;return}
+  const from=+el.dataset.v||0,t0=performance.now();el.dataset.v=to;
+  (function f(t){const p=Math.min((t-t0)/ms,1),e=1-Math.pow(1-p,3);el.textContent=fmt(Math.round(from+(to-from)*e));if(p<1)requestAnimationFrame(f)})(t0);
+}
+function renderNums(){
+  $$('[data-c]').forEach(el=>tween(el,n[el.dataset.c],+el.dataset.v?500:1400));
+  const next=MILESTONES.find(m=>m>n.members)||MILESTONES.at(-1),prev=MILESTONES[MILESTONES.indexOf(next)-1]||0;
+  $('#milestone').textContent=fmt(next);$('#toGo').textContent=fmt(Math.max(next-n.members,0));
+  $('#meter').style.width=Math.min((n.members-prev)/(next-prev)*100,100)+'%';
+  $('#early').hidden=n.members>=1000;
+}
+function applyStats(j){
+  if(!j||typeof j.members!=='number')return;
+  n.members=j.members;n.today=j.today|0;n.doms=j.byDomain||{};
+  renderNums();renderDoms();renderBoard();
+}
+async function loadStats(){
+  if(!CONFIG.API_URL)return;
+  try{applyStats(await (await fetch(CONFIG.API_URL+'?stats=1')).json())}catch{}
+}
+/* ---------- marquee ---------- */
+const mq=SLOGANS.map(s=>`<span>✦ ${s}</span>`).join('');
+$('#marq').innerHTML=mq+mq+mq+mq;
+
+/* ---------- domains ---------- */
+function renderDoms(){
+  $('#doms').innerHTML=DOMAINS.map(d=>{const c=n.doms[d.id]||0;return `<button class="box dom" type="button" data-start="${d.id}">
+    <span class="e">${d.e}</span><h3>${d.n}</h3><small>${c?`👥 ${fmt(c)} members`:'Be the first to join'}</small><span class="go">Join group →</span></button>`}).join('');
+}
+
+/* ---------- domain leaderboard ---------- */
+function renderBoard(){
+  const rows=DOMAINS.map(d=>[d,n.doms[d.id]||0]).sort((a,b)=>b[1]-a[1]),max=Math.max(rows[0][1],1);
+  $('#board').innerHTML=(n.members?'':'<p class="empty">The race starts with the first sign-up. Join and put your domain on the board.</p>')+
+    rows.map(([d,c],i)=>`<div class="drow"><span class="rk">${i===0&&c?'👑':i+1}</span><span>${d.e} ${d.n}</span><div class="bar"><i style="width:${c/max*100}%"></i></div><b>${fmt(c)}</b></div>`).join('');
+}
+/* ---------- example openings ---------- */
+const EXAMPLES=[['it',0],['mkt',0],['health',0],['gulf',0],['founder',0]].map(([id,i])=>{const d=DOMAINS.find(x=>x.id===id);return{d,role:d.roles[i][0],loc:d.roles[i][1]}});
+$('#feed').innerHTML=EXAMPLES.map((j,i)=>`<div class="box job"><span class="e">${j.d.e}</span>
+  <div><h4>${j.role}<span class="tag">${i%2?'Referral':'Opening'}</span><span class="tag new">Example</span></h4><p>${j.loc} · ${j.d.n} group</p></div>
+  <button class="btn alt" type="button" style="padding:10px 16px;font-size:1rem;box-shadow:4px 4px 0 var(--line)" data-start="${j.d.id}">Get alerts</button></div>`).join('');
+
+/* ---------- guide (join flow: name, number, education, domain, status) ---------- */
+const STEPS=[
+ {key:'name',type:'text',skip:p=>!!p.name,ph:'Your name',q:()=>"Welcome to the mission ✊ What's your name?",validate:t=>t.length<2?'Please enter your name.':''},
+ {key:'phone',type:'text',skip:p=>!!p.phone,ph:'10-digit mobile number',q:p=>`Good to have you, ${p.name.split(' ')[0]}! What's your WhatsApp number? Your group invite goes there.`,
+  validate:t=>/^(\+?91)?[6-9]\d{9}$/.test(t.replace(/[\s-]+/g,''))?'':"That doesn't look like a 10-digit Indian mobile number. Try again?"},
+ {key:'edu',skip:p=>!!p.edu,q:()=>'What is your highest education?',opts:()=>EDU},
+ {key:'dom',skip:p=>!!p.dom,q:()=>'Which domain are you looking for a job in?',opts:()=>DOMAINS.map(d=>({v:d.id,l:d.e+' '+d.n})),text:'Something else'},
+ {key:'status',q:()=>'Last one. Are you employed or unemployed right now?',opts:()=>STATUS}
+];
+/* Wire these up before launch. Nothing here leaves the browser until you do. */
+const CONFIG={
+  API_URL:'',           // Google Apps Script web app URL (see SETUP.md): GET = live counts, POST = new sign-up
+  GROUP_LINKS:{},       // group slug -> invite URL, e.g. 'marketing-job-seekers':'https://chat.whatsapp.com/XXXX'
+  DOMAIN_LINKS:{},      // domain id -> fallback invite URL, e.g. mkt:'https://chat.whatsapp.com/YYYY'
+  DEFAULT_LINK:''       // catch-all community link
+};
+const safe=u=>/^https:\/\//.test(u||'')?u:'';
+const slug=t=>t.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+const linkFor=g=>safe(CONFIG.GROUP_LINKS[g.slug])||safe(CONFIG.DOMAIN_LINKS[g.dom])||safe(CONFIG.DEFAULT_LINK);
+let prof={},stepI=0,cur=null,gen=0;
+const log=$('#chatLog'),optsEl=$('#chatOpts'),tform=$('#chatText'),tin=$('#chatInput');
+function say(txt,who='bot'){const d=document.createElement('div');d.className='msg '+who;d.textContent=txt;log.appendChild(d);log.scrollTop=log.scrollHeight;return d}
+async function botSay(txt,g){
+  const t=document.createElement('div');t.className='msg bot dots';t.innerHTML='<span></span><span></span><span></span>';log.appendChild(t);log.scrollTop=log.scrollHeight;
+  await wait(600);t.remove();if(g!==gen)return;say(txt);
+}
+async function runStep(){
+  const g=gen;
+  while(stepI<STEPS.length&&STEPS[stepI].skip&&STEPS[stepI].skip(prof))stepI++;
+  $('#chatProg').style.width=Math.min(stepI/STEPS.length*100,100)+'%';
+  if(stepI>=STEPS.length)return finish();
+  cur=STEPS[stepI];optsEl.innerHTML='';tform.hidden=true;
+  await botSay(cur.q(prof),g);if(g!==gen)return;
+  if(cur.type==='text'){tin.placeholder=cur.ph;tin.type=cur.key==='phone'?'tel':'text';tform.hidden=false;tin.focus({preventScroll:true});return}
+  const o=cur.opts(prof);
+  optsEl.innerHTML=o.map((x,i)=>`<button class="chip" type="button" data-i="${i}">${esc(x.l)}</button>`).join('')+(cur.text?`<button class="chip" type="button" data-t="1">✏️ ${cur.text}…</button>`:'');
+  optsEl._o=o;
+}
+function answer(label,val){say(label,'me');prof[cur.key]=val;optsEl.innerHTML='';tform.hidden=true;stepI++;runStep()}
+optsEl.addEventListener('click',e=>{
+  const b=e.target.closest('.chip');if(!b||!cur)return;
+  if(b.dataset.t){tin.type='text';tform.hidden=false;tin.placeholder='Type your domain…';tin.focus();return}
+  const o=optsEl._o[+b.dataset.i];answer(o.l,o.v);
+});
+tform.addEventListener('submit',e=>{
+  e.preventDefault();const t=tin.value.trim();if(!t||!cur)return;tin.value='';
+  if(cur.type==='text'){const bad=cur.validate(t);if(bad){say(t,'me');say(bad);return}answer(t,t);return}
+  if(cur.key==='dom'){const id=Object.keys(KW).find(k=>KW[k].test(t));if(!id)prof.domText=t;answer(t,id||'other')}
+});
+function buildGroup(p){
+  const d=DOMAINS.find(x=>x.id===p.dom),st=STATUS.find(x=>x.v===p.status),nm=`${d?d.n:p.domText} · ${st.g}`;
+  return {e:d?d.e:'🌐',n:nm,slug:slug(nm),dom:p.dom};
+}
+function showResult(){
+  const p=prof,g=state.group,u=linkFor(g);
+  const share=`I just joined Koottam as member #${fmt(state.memberNo)} ✊ Mission: a job for every Keralite. Join free:${/^https?:/.test(location.href)?' '+location.href.split('#')[0]:''}`;
+  $('#result').innerHTML=`
+   <div class="mcard">
+     <div class="top"><span>Koottam ✦ Member card</span><span>${new Date(state.joinedAt||Date.now()).toLocaleDateString('en-IN',{month:'short',year:'numeric'})}</span></div>
+     <div class="no">#${fmt(state.memberNo)}</div>
+     <div class="nm">${esc(p.name)}</div>
+     <div class="grp">${g.e} ${esc(g.n)}</div>
+     <p class="inv">${u?'Your group is ready. Tap Join group below.':`Your invite is on its way to WhatsApp ${esc(p.phone)}.`}</p>
+   </div>
+   <div class="mcard-act">
+     ${u?`<a class="btn alt" href="${esc(u)}" target="_blank" rel="noopener">Join group →</a>`:''}
+     <a class="btn" href="https://wa.me/?text=${encodeURIComponent(share)}" target="_blank" rel="noopener">Share on WhatsApp</a>
+     <button class="btn ghost" type="button" id="dlCard">Download card</button>
+   </div>`;
+}
+$('#result').addEventListener('click',e=>{if(e.target.closest('#dlCard'))downloadCard()});
+async function downloadCard(){
+  try{await document.fonts.ready}catch{}
+  const c=document.createElement('canvas');c.width=1200;c.height=675;const x=c.getContext('2d'),g=state.group;
+  x.fillStyle='#0d0d0d';x.fillRect(0,0,1200,675);x.fillStyle='#e8202a';x.fillRect(20,20,1160,635);
+  x.fillStyle='#ffffff22';x.font='220px Anton, Impact, sans-serif';x.fillText('MEMBER',520,640);
+  x.fillStyle='#fff';x.font='800 26px Inter, sans-serif';x.fillText('KOOTTAM ✦ MEMBER CARD',70,95);
+  x.font='170px Anton, Impact, sans-serif';x.fillText('#'+fmt(state.memberNo),62,290);
+  x.font='70px Anton, Impact, sans-serif';x.fillText(prof.name.toUpperCase().slice(0,26),66,390);
+  x.font='800 34px Inter, sans-serif';const t=g.n,w=x.measureText(t).width;
+  x.fillStyle='#ffd60a';x.fillRect(66,430,w+40,64);x.strokeStyle='#0d0d0d';x.lineWidth=5;x.strokeRect(66,430,w+40,64);
+  x.fillStyle='#0d0d0d';x.fillText(t,86,474);
+  x.fillStyle='#fff';x.font='48px Anton, Impact, sans-serif';x.fillText('A JOB FOR EVERY KERALITE',66,590);
+  const filename=`koottam-member-${state.memberNo}.png`;
+  const dl=window.claude?.use?await window.claude.use('downloads').catch(()=>null):null;
+  if(dl){const blob=await new Promise(r=>c.toBlob(r,'image/png'));try{await dl.save({filename,data:blob})}catch(e){if(e&&e.code==='unavailable')$('#dlCard').hidden=true}return}
+  if(window.claude)return; // inside a viewer that cannot save files
+  const a=document.createElement('a');a.download=filename;a.href=c.toDataURL('image/png');a.click(); // standalone site
+}
+async function register(){
+  const pl={name:prof.name,phone:prof.phone,education:prof.edu,domain:prof.dom==='other'?prof.domText:prof.dom,status:prof.status,group:state.group.slug};
+  if(!CONFIG.API_URL)return null;
+  try{const j=await (await fetch(CONFIG.API_URL,{method:'POST',body:JSON.stringify(pl)})).json();return j&&j.ok?j:null}catch{return null}
+}
+async function finish(){
+  const g=gen;
+  state.group=buildGroup(prof);state.profile=prof;
+  await botSay('Adding you to your group…',g);
+  const res=await register();
+  if(res){state.memberNo=res.memberNo;applyStats(res)}
+  else if(state.regContact!==prof.phone){n.members++;n.today++;state.memberNo=n.members;renderNums()} // no sheet connected yet
+  state.regContact=prof.phone;state.joinedAt=state.joinedAt||Date.now();
+  store.set('koottam_live',state);
+  if(g!==gen)return;
+  await botSay(`Done! You're member #${fmt(state.memberNo)} ✊ I've added you to ${state.group.n}. Here's your member card 👇`,g);
+  if(g!==gen)return;
+  showResult();burst();
+}
+function restart(domId){
+  gen++;
+  const id=state.profile?{name:state.profile.name,phone:state.profile.phone,edu:state.profile.edu}:{};
+  prof={...id,...(domId?{dom:domId}:{})};stepI=0;
+  log.innerHTML='';optsEl.innerHTML='';tform.hidden=true;$('#result').innerHTML='';runStep();
+}
+$('#chatReset').addEventListener('click',()=>restart());
+document.addEventListener('click',e=>{
+  const b=e.target.closest('[data-start]');if(!b)return;
+  restart(b.dataset.start);$('#join').scrollIntoView({behavior:reduce?'auto':'smooth'});
+});
+function initGuide(){
+  if(state.profile&&state.group){prof=state.profile;stepI=STEPS.length;$('#chatProg').style.width='100%';
+    say(`Welcome back, ${prof.name.split(' ')[0]}! You're in ${state.group.n}. Hit Restart to change your group.`);showResult();}
+  else runStep();
+}
+
+/* ---------- confetti ---------- */
+function burst(){
+  if(reduce)return;
+  const cv=$('#confetti'),ctx=cv.getContext('2d');cv.width=innerWidth;cv.height=innerHeight;
+  const cols=['#e8202a','#ffd60a','#0d0d0d','#ffffff'];
+  const ps=Array.from({length:160},()=>({x:innerWidth/2,y:innerHeight*.6,vx:(Math.random()-.5)*18,vy:-Math.random()*17-4,s:5+Math.random()*7,c:cols[Math.random()*4|0],r:Math.random()*6}));
+  let f=0;(function tick(){
+    ctx.clearRect(0,0,cv.width,cv.height);
+    ps.forEach(p=>{p.vy+=.38;p.x+=p.vx;p.y+=p.vy;p.r+=.2;ctx.fillStyle=p.c;ctx.save();ctx.translate(p.x,p.y);ctx.rotate(p.r);ctx.fillRect(-p.s/2,-p.s/2,p.s,p.s*.6);ctx.restore()});
+    if(++f<130)requestAnimationFrame(tick);else ctx.clearRect(0,0,cv.width,cv.height);
+  })();
+}
+
+renderNums();renderDoms();renderBoard();initGuide();
+loadStats();setInterval(loadStats,30000);
+})();
+</script>
+</body>
+</html>
