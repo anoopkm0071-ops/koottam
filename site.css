@@ -257,6 +257,7 @@ footer small{display:block;color:var(--mute);font-weight:400;margin-top:6px}
 #vdots{display:flex;gap:8px;justify-content:center;margin-top:26px}
 #vdots i{width:30px;height:12px;border:2.5px solid var(--line);background:var(--paper)}
 #vdots i.on{background:var(--red)}
+.vmute{display:block;margin:10px auto 0;background:var(--card);border:2px solid var(--line);color:var(--ink);font:800 .75rem var(--body);text-transform:uppercase;letter-spacing:.08em;padding:6px 12px;cursor:pointer}
 #vstatus{text-align:center;font-weight:800;margin-top:10px;text-transform:uppercase;letter-spacing:.1em;font-size:.82rem}
 .again{display:block;margin-top:22px;background:none;border:0;padding:0;color:var(--mute);font:800 .9rem var(--body);text-decoration:underline;cursor:pointer}
 .mcard .exv{display:inline-block;margin:14px 0 0 12px;border:3px solid #fff;padding:4px 10px;font:400 1.05rem/1.1 var(--head);text-transform:uppercase;letter-spacing:.04em;transform:rotate(-4deg);vertical-align:top}
