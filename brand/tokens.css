@@ -1,0 +1,74 @@
+/* Koottam — generated from tokens.json */
+:root, [data-theme="light"] {
+  --paper: #f5f0e6;
+  --card: #fffdf8;
+  --ink: #0d0d0d;
+  --mute: #5b5750;
+  --line: #0d0d0d;
+  --red: #e8202a;
+  --yellow: #ffd60a;
+  --black: #0d0d0d;
+  --white: #f5f0e6;
+  --on-red: #ffffff;
+  --on-yellow: #0d0d0d;
+  --focus: #ffd60a;
+  --shadow-sm: 3px 3px 0 #0d0d0d;
+  --shadow-md: 6px 6px 0 #0d0d0d;
+  --shadow-lg: 8px 8px 0 #0d0d0d;
+  --shadow-xl: 12px 12px 0 #0d0d0d;
+}
+[data-theme="dark"] {
+  --paper: #121110;
+  --card: #1c1a18;
+  --ink: #f5f0e6;
+  --mute: #aaa397;
+  --line: #f5f0e6;
+  --shadow-sm: 3px 3px 0 #f5f0e6;
+  --shadow-md: 6px 6px 0 #f5f0e6;
+  --shadow-lg: 8px 8px 0 #f5f0e6;
+  --shadow-xl: 12px 12px 0 #f5f0e6;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #121110;
+    --card: #1c1a18;
+    --ink: #f5f0e6;
+    --mute: #aaa397;
+    --line: #f5f0e6;
+    --shadow-sm: 3px 3px 0 #f5f0e6;
+    --shadow-md: 6px 6px 0 #f5f0e6;
+    --shadow-lg: 8px 8px 0 #f5f0e6;
+    --shadow-xl: 12px 12px 0 #f5f0e6;
+  }
+}
+:root {
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 28px;
+  --space-7: 44px;
+  --space-8: 96px;
+  --radius-none: 0;
+  --radius-dot: 50%;
+  --stroke-thick: 3px;
+  --stroke-mid: 2.5px;
+  --stroke-thin: 2px;
+  --tilt-mark: -1.5deg;
+  --tilt-stamp: -3deg;
+  --tilt-counter: 1.5deg;
+  --font-display: Anton, Impact, "Arial Narrow Bold", sans-serif;
+  --font-body: Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+.display-xl { font-family: var(--font-display); font-size: 150px; line-height: 0.92; font-weight: 400; text-transform: uppercase; }
+.display-l { font-family: var(--font-display); font-size: 90px; line-height: 0.92; font-weight: 400; text-transform: uppercase; }
+.display-m { font-family: var(--font-display); font-size: 37px; line-height: 0.95; font-weight: 400; text-transform: uppercase; }
+.counter { font-family: var(--font-display); font-size: 93px; line-height: 1; font-weight: 400; text-transform: uppercase; }
+.button { font-family: var(--font-display); font-size: 20px; line-height: 1; font-weight: 400; letter-spacing: 0.03em; text-transform: uppercase; }
+.lead { font-family: var(--font-body); font-size: 20px; line-height: 1.5; font-weight: 600; }
+.body { font-family: var(--font-body); font-size: 17px; line-height: 1.55; font-weight: 400; }
+.body-strong { font-family: var(--font-body); font-size: 17px; line-height: 1.45; font-weight: 600; }
+.kicker { font-family: var(--font-body); font-size: 13px; line-height: 1; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase; }
+.label { font-family: var(--font-body); font-size: 12px; line-height: 1.2; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; }
+.small { font-family: var(--font-body); font-size: 14px; line-height: 1.5; font-weight: 600; }

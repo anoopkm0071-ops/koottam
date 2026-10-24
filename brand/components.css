@@ -1,0 +1,35 @@
+/* Koottam components: plain CSS, styled from tokens.css */
+.k-wrap{display:flex;flex-wrap:wrap;gap:var(--space-4);align-items:flex-start;padding:var(--space-4);background:var(--paper);color:var(--ink);font:400 17px/1.55 var(--font-body)}
+.k-btn{display:inline-flex;align-items:center;gap:10px;cursor:pointer;font:400 20px/1 var(--font-display);text-transform:uppercase;letter-spacing:.03em;padding:16px 28px;background:var(--red);color:var(--on-red);border:var(--stroke-thick) solid var(--line);box-shadow:var(--shadow-md);text-decoration:none;transition:transform .12s,box-shadow .12s;border-radius:var(--radius-none)}
+.k-btn:hover{transform:translate(-2px,-2px);box-shadow:8px 8px 0 var(--line)}
+.k-btn:active{transform:translate(4px,4px);box-shadow:2px 2px 0 var(--line)}
+.k-btn:focus-visible{outline:4px solid var(--focus);outline-offset:3px}
+.k-btn--alt{background:var(--yellow);color:var(--on-yellow)}
+.k-btn--ghost{background:var(--card);color:var(--ink)}
+.k-btn--sm{padding:10px 16px;font-size:16px;box-shadow:4px 4px 0 var(--line)}
+.k-kicker{display:inline-block;font:800 13px/1 var(--font-body);letter-spacing:.16em;text-transform:uppercase;background:var(--ink);color:var(--paper);padding:8px 12px}
+.k-mark{background:var(--yellow);color:var(--on-yellow);padding:0 .12em;display:inline-block;transform:rotate(var(--tilt-mark))}
+.k-h{font:400 56px/.92 var(--font-display);text-transform:uppercase;margin:14px 0 0}
+.k-box{background:var(--card);border:var(--stroke-thick) solid var(--line);box-shadow:var(--shadow-lg);padding:var(--space-5)}
+.k-box h3{font:400 37px/.95 var(--font-display);text-transform:uppercase;margin:6px 0 10px}
+.k-box .n{font:400 60px/1 var(--font-display);color:var(--red)}
+.k-box p{color:var(--mute);margin:0}
+.k-tag{display:inline-block;font:800 11px var(--font-body);letter-spacing:.08em;text-transform:uppercase;padding:3px 8px;border:var(--stroke-thin) solid var(--line);background:var(--yellow);color:var(--on-yellow)}
+.k-tag--new{background:var(--red);color:var(--on-red)}
+.k-chat{display:flex;flex-direction:column;gap:var(--space-3);width:100%;max-width:440px}
+.k-bubble{max-width:86%;padding:12px 16px;border:var(--stroke-mid) solid var(--line);font:600 16px/1.45 var(--font-body)}
+.k-bubble--bot{background:var(--paper);align-self:flex-start;box-shadow:4px 4px 0 var(--line)}
+.k-bubble--me{background:var(--red);color:var(--on-red);align-self:flex-end;box-shadow:-4px 4px 0 var(--line)}
+.k-chip{border:var(--stroke-mid) solid var(--line);background:var(--card);color:var(--ink);padding:10px 14px;font:800 15px var(--font-body);box-shadow:var(--shadow-sm);cursor:pointer}
+.k-mcard{width:100%;max-width:420px;background:var(--red);color:var(--on-red);border:var(--stroke-thick) solid var(--line);box-shadow:10px 10px 0 var(--line);padding:26px;position:relative;overflow:hidden}
+.k-mcard .top{display:flex;justify-content:space-between;font:800 12px var(--font-body);letter-spacing:.16em;text-transform:uppercase}
+.k-mcard .no{font:400 72px/1 var(--font-display);margin:16px 0 6px}
+.k-mcard .nm{font:400 32px/1 var(--font-display);text-transform:uppercase}
+.k-mcard .grp{display:inline-block;margin-top:14px;background:var(--yellow);color:var(--on-yellow);border:var(--stroke-mid) solid var(--black);padding:6px 12px;font:800 15px var(--font-body)}
+.k-counter{background:var(--red);color:var(--on-red);border:var(--stroke-thick) solid var(--line);box-shadow:var(--shadow-xl);padding:26px 26px 22px;transform:rotate(var(--tilt-counter));width:300px}
+.k-counter .live{display:flex;align-items:center;gap:10px;font:800 12px var(--font-body);letter-spacing:.16em;text-transform:uppercase}
+.k-counter .dot{width:12px;height:12px;border-radius:var(--radius-dot);background:var(--yellow)}
+.k-counter .num{font:400 76px/1 var(--font-display);margin:12px 0 4px;font-variant-numeric:tabular-nums}
+.k-counter .lbl{font:400 24px/1 var(--font-display);text-transform:uppercase}
+.k-counter .meter{height:16px;border:var(--stroke-thick) solid var(--black);background:#ffffff;margin:16px 0 0}
+.k-counter .meter i{display:block;height:100%;width:62%;background:var(--yellow)}
