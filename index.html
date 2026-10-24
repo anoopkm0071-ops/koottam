@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Koottam Job Mission</title>
-<meta name="description" content="Koottam is a movement on a mission: a job for every Keralite. Join free, get added to your domain group, get openings, referrals and interview prep.">
+<meta name="description" content="Koottam is a movement on a mission: a job for every Mallu. Join free, get added to your domain group, get openings, referrals and interview prep.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
 <style>
@@ -204,14 +204,14 @@ canvas#confetti{position:fixed;inset:0;pointer-events:none;z-index:99}
 <header class="hero" id="top"><div class="wrap">
   <div>
     <div class="stamp">✦ A people's movement for jobs</div>
-    <h1>Every Keralite deserves a <mark>job.</mark></h1>
+    <h1>Every Mallu deserves a <mark>job.</mark></h1>
     <p>Not a promise. A mission. We're putting every job seeker in Kerala in the right group, with real openings, referrals from people inside, and the prep nobody taught us.</p>
     <div class="cta"><a class="btn" href="#join">Join the mission →</a><a class="btn ghost" href="#why">Why we exist</a></div>
   </div>
   <div class="counter" aria-live="polite">
     <div class="live"><span class="dot"></span> Live count</div>
     <div class="num" data-c="members">0</div>
-    <div class="lbl">Keralites have joined</div>
+    <div class="lbl">Mallus have joined</div>
     <div class="meter"><i id="meter"></i></div>
     <small>Next milestone: <b id="milestone">25,000</b> members · <span id="toGo">0</span> to go</small>
     <div class="today">🔥 <span data-c="today">0</span> joined today<span id="early"> · Early days: founding members get in first</span></div>
@@ -305,13 +305,13 @@ canvas#confetti{position:fixed;inset:0;pointer-events:none;z-index:99}
 </div></section>
 
 <section class="final"><div class="wrap">
-  <h2>No Keralite<br>left jobless.</h2>
+  <h2>No Mallu<br>left jobless.</h2>
   <p style="font-size:1.25rem;font-weight:600;margin:-6px auto 34px;max-width:560px">That's the mission. It only works if you're in it. Join, then bring one friend who needs this.</p>
   <a class="btn" href="#join">I'm in →</a>
 </div></section>
 
 <footer><div class="wrap">
-  <div>© 2026 Koottam · A job for every Keralite.<small>Member counts are live sign-ups. Job cards shown above are examples.</small></div>
+  <div>© 2026 Koottam · A job for every Mallu.<small>Member counts are live sign-ups. Job cards shown above are examples.</small></div>
   <div>Never pay anyone for a job.<small>Koottam is free, forever.</small></div>
 </div></footer>
 <canvas id="confetti"></canvas>
@@ -340,7 +340,7 @@ const DOMAINS=[
  {id:'govt',n:'PSC & Government',e:'🏛️',roles:[['LDC notification alert','Statewide'],['Police Constable alert','Statewide'],['University Assistant alert','Statewide']]},
  {id:'creative',n:'Design & Creative',e:'🎨',roles:[['UI Designer','Kochi'],['Video Editor','Remote'],['Content Writer','Kozhikode']]}
 ];
-const SLOGANS=['A job for every Keralite','Never pay for a job','Join free. Stay free.','No Keralite left jobless','Openings · Referrals · Prep','Freshers to Gulf returnees'];
+const SLOGANS=['A job for every Mallu','Never pay for a job','Join free. Stay free.','No Mallu left jobless','Openings · Referrals · Prep','Freshers to Gulf returnees'];
 const KW={mkt:/market|seo|brand|social|advert|growth/i,sales:/sales|business dev/i,it:/software|developer|programm|tech|data|\bai\b|code|\bqa\b|devops/i,founder:/founder|startup|strategy|chief|operations/i,bank:/bank|financ|account|tax|invest/i,health:/nurs|health|doctor|pharm|\blab\b/i,gulf:/gulf|abroad|dubai|saudi|qatar/i,edu:/teach|tutor|educat|school/i,hosp:/hotel|hospitality|tour|chef|travel/i,eng:/civil|construct|mechanic|electric/i,govt:/psc|govern|upsc|ssc|railway/i,creative:/design|video|writer|creative/i};
 const EDU=[{v:'10',l:'SSLC / 10th'},{v:'12',l:'Plus Two'},{v:'diploma',l:'Diploma / ITI'},{v:'degree',l:'Degree'},{v:'pg',l:'Post-graduate'},{v:'prof',l:'Professional (B.Tech, CA, MBBS…)'}];
 const STATUS=[{v:'unemployed',l:'🔎 Unemployed, looking for a job',g:'Job seekers'},{v:'employed',l:'💼 Employed, looking for a change',g:'Working professionals'}];
@@ -451,7 +451,7 @@ function buildGroup(p){
 }
 function showResult(){
   const p=prof,g=state.group,u=linkFor(g);
-  const share=`I just joined Koottam as member #${fmt(state.memberNo)} ✊ Mission: a job for every Keralite. Join free:${/^https?:/.test(location.href)?' '+location.href.split('#')[0]:''}`;
+  const share=`I just joined Koottam as member #${fmt(state.memberNo)} ✊ Mission: a job for every Mallu. Join free:${/^https?:/.test(location.href)?' '+location.href.split('#')[0]:''}`;
   $('#result').innerHTML=`
    <div class="mcard">
      <div class="top"><span>Koottam ✦ Member card</span><span>${new Date(state.joinedAt||Date.now()).toLocaleDateString('en-IN',{month:'short',year:'numeric'})}</span></div>
@@ -478,7 +478,7 @@ async function downloadCard(){
   x.font='800 34px Inter, sans-serif';const t=g.n,w=x.measureText(t).width;
   x.fillStyle='#ffd60a';x.fillRect(66,430,w+40,64);x.strokeStyle='#0d0d0d';x.lineWidth=5;x.strokeRect(66,430,w+40,64);
   x.fillStyle='#0d0d0d';x.fillText(t,86,474);
-  x.fillStyle='#fff';x.font='48px Anton, Impact, sans-serif';x.fillText('A JOB FOR EVERY KERALITE',66,590);
+  x.fillStyle='#fff';x.font='48px Anton, Impact, sans-serif';x.fillText('A JOB FOR EVERY MALLU',66,590);
   const filename=`koottam-member-${state.memberNo}.png`;
   const dl=window.claude?.use?await window.claude.use('downloads').catch(()=>null):null;
   if(dl){const blob=await new Promise(r=>c.toBlob(r,'image/png'));try{await dl.save({filename,data:blob})}catch(e){if(e&&e.code==='unavailable')$('#dlCard').hidden=true}return}

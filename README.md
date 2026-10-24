@@ -1,4 +1,4 @@
-# Koottam ✦ A job for every Keralite
+# Koottam ✦ A job for every Mallu
 
 A movement site for Kerala job seekers. People join through a 5-question guide (name, WhatsApp number, education, domain, employed or unemployed), land in the right group, and get a shareable member card.
 
